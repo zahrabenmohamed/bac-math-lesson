@@ -4,3 +4,7 @@ spring:
     username: sa
     password: ""
     driver-class-name: org.h2.Driver
+
+app:
+  jwt:
+    secret: test-only-secret-test-only-secret-0123456789

@@ -6,6 +6,14 @@ spring:
   flyway:
     enabled: true
 
+app:
+  jwt:
+    # No default on purpose: the app refuses to start without JWT_SECRET (>= 32 chars).
+    secret: ${JWT_SECRET}
+    expiry-minutes: ${JWT_EXPIRY_MINUTES:120}
+  cors-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:5180}
+  timezone: Africa/Casablanca
+
 management:
   endpoints:
     web:
