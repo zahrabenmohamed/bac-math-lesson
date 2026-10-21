@@ -32,5 +32,13 @@ services:
       timeout: 3s
       retries: 10
 
+  frontend:
+    build: ./frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${FRONTEND_PORT:-8081}:80"
+
 volumes:
   dbdata:

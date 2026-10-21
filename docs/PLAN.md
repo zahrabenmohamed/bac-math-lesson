@@ -45,3 +45,11 @@ Le serveur est seul à connaître les bonnes réponses : `GET /lessons/{id}` ren
 
 ## Jalons
 a. dépôt + compose + health check · b. schéma + loader + leçons 1–2 · c. auth + endpoints chapitre/leçon · d. correction + XP/maîtrise + tests · e. frontend shell, tokens, carte · f. lecteur de leçon (3 types) · g. profil + erreurs · h. leçons 3–7 · i. finitions + README.
+
+## Écarts par rapport au plan initial (implémentation)
+- Identifiants publics de l'API = codes de contenu (`complexes`, `L01`, `L01-E1`) et non des ids numériques.
+- Tables ajoutées : `exercise_mastery` (maîtrise) et `hint_requests` (l'indice est demandé via l'API pour que le serveur
+  connaisse la réduction d'XP ; le client ne la déclare pas).
+- Endpoints ajoutés : `POST /lessons/{code}/complete`, `POST /exercises/{code}/hint`.
+- Les réponses numériques complexes doivent être sous forme algébrique `a + bi` (une expression non simplifiée est refusée).
+- Boss : exercices finaux B1/B2 (lecteur identique, bonus d'XP) ; la leçon suivante reste verrouillée tant qu'ils ne sont pas terminés.
