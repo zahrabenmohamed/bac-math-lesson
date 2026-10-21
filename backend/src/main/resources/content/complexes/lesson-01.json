@@ -1,0 +1,213 @@
+{
+  "code": "L01",
+  "part": 1,
+  "position": 1,
+  "title": "L’ensemble ℂ et la forme algébrique",
+  "kind": "LESSON",
+  "status": "draft",
+  "steps": [
+    {
+      "type": "EXPLANATION",
+      "title": "Pourquoi un nouvel ensemble de nombres ?",
+      "body": "Dans $\\mathbb{R}$, l’équation $x^2 = -1$ n’a pas de solution, car un carré réel est toujours positif ou nul. On introduit donc un nombre, noté $i$, tel que $i^2 = -1$.\n\nL’ensemble $\\mathbb{C}$ des nombres complexes contient $\\mathbb{R}$ et ce nombre $i$ ; on y calcule avec les mêmes règles que dans $\\mathbb{R}$ (addition, multiplication, distributivité), en remplaçant $i^2$ par $-1$.",
+      "example": {
+        "statement": "Résoudre dans $\\mathbb{C}$ l’équation $x^2 = -9$.",
+        "solution": "On écrit $-9 = 9\\times(-1) = (3i)^2$. L’équation devient $x^2 = (3i)^2$, donc $x = 3i$ ou $x = -3i$."
+      }
+    },
+    {
+      "type": "EXPLANATION",
+      "title": "Forme algébrique",
+      "body": "Tout nombre complexe $z$ s’écrit de façon unique $z = a + bi$ avec $a$ et $b$ réels : c’est sa **forme algébrique**.\n\n- $a$ est la **partie réelle** : $\\operatorname{Re}(z) = a$ ;\n- $b$ est la **partie imaginaire** : $\\operatorname{Im}(z) = b$ (un réel, sans le $i$).\n\nDeux nombres complexes sont égaux si et seulement si ils ont la même partie réelle et la même partie imaginaire. Si $b = 0$, $z$ est réel ; si $a = 0$, $z$ est **imaginaire pur**.",
+      "example": {
+        "statement": "Donner les parties réelle et imaginaire de $z = 3 - 5i$.",
+        "solution": "$z = 3 + (-5)\\,i$ donc $\\operatorname{Re}(z) = 3$ et $\\operatorname{Im}(z) = -5$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L01-E1",
+        "type": "QCM",
+        "skill": "Forme algébrique",
+        "payload": {
+          "prompt": "Quelle est la partie imaginaire de $z = 4 - 7i$ ?",
+          "multiple": false,
+          "options": [
+            { "id": "a", "text": "$7$" },
+            { "id": "b", "text": "$-7$" },
+            { "id": "c", "text": "$-7i$" },
+            { "id": "d", "text": "$4$" }
+          ]
+        },
+        "answer": {
+          "correct": ["b"],
+          "feedback": {
+            "a": "Le signe est oublié : $z = 4 + (-7)\\,i$, la partie imaginaire est négative.",
+            "c": "La partie imaginaire est le réel $b$ dans $a + bi$ : on ne garde pas le $i$.",
+            "d": "$4$ est la partie réelle, pas la partie imaginaire."
+          }
+        },
+        "solution": "$z = 4 + (-7)\\,i$ donc $\\operatorname{Im}(z) = -7$.",
+        "hint": "Écrivez $z$ sous la forme $a + bi$ et repérez $b$ avec son signe."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L01-E2",
+        "type": "NUMERIC",
+        "skill": "Opérations",
+        "payload": {
+          "prompt": "Écrire sous forme algébrique : $(2 + 3i) + (1 - 5i)$.",
+          "format": "complex",
+          "placeholder": "ex. 3 - 2i"
+        },
+        "answer": { "re": 3, "im": -2, "tolerance": 0.001 },
+        "solution": "On additionne les parties réelles puis les parties imaginaires : $(2+1) + (3-5)\\,i = 3 - 2i$.",
+        "hint": "Additionnez séparément les parties réelles et les parties imaginaires."
+      }
+    },
+    {
+      "type": "EXPLANATION",
+      "title": "Somme et produit",
+      "body": "Pour $z = a + bi$ et $z' = c + di$ :\n\n$$z + z' = (a + c) + (b + d)\\,i$$\n\n$$z \\times z' = (ac - bd) + (ad + bc)\\,i$$\n\nIl n’est pas nécessaire de retenir la seconde formule : on développe comme dans $\\mathbb{R}$, puis on remplace $i^2$ par $-1$.",
+      "example": {
+        "statement": "Calculer $(2 + 3i)(1 - i)$.",
+        "solution": "$(2+3i)(1-i) = 2 - 2i + 3i - 3i^2 = 2 + i + 3 = 5 + i$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L01-E3",
+        "type": "NUMERIC",
+        "skill": "Opérations",
+        "payload": {
+          "prompt": "Écrire sous forme algébrique : $(1 + 2i)(3 - i)$.",
+          "format": "complex",
+          "placeholder": "ex. 5 + 5i"
+        },
+        "answer": { "re": 5, "im": 5, "tolerance": 0.001 },
+        "solution": "$(1+2i)(3-i) = 3 - i + 6i - 2i^2 = 3 + 5i + 2 = 5 + 5i$.",
+        "hint": "Développez, puis remplacez $i^2$ par $-1$."
+      }
+    },
+    {
+      "type": "EXPLANATION",
+      "title": "Puissances de i",
+      "body": "On a $i^2 = -1$, $i^3 = -i$ et $i^4 = 1$. Comme $i^4 = 1$, les puissances de $i$ se répètent par période de 4 : pour un entier $n$, on divise $n$ par 4 et on garde le reste $r$ ; alors $i^n = i^r$.",
+      "example": {
+        "statement": "Calculer $i^{2027}$.",
+        "solution": "$2027 = 4 \\times 506 + 3$, donc $i^{2027} = (i^4)^{506} \\times i^3 = i^3 = -i$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L01-E4",
+        "type": "QCM",
+        "skill": "Puissances de i",
+        "payload": {
+          "prompt": "Quelle est la valeur de $i^{2026}$ ?",
+          "multiple": false,
+          "options": [
+            { "id": "a", "text": "$1$" },
+            { "id": "b", "text": "$-1$" },
+            { "id": "c", "text": "$i$" },
+            { "id": "d", "text": "$-i$" }
+          ]
+        },
+        "answer": {
+          "correct": ["b"],
+          "feedback": {
+            "a": "Vérifiez le reste de la division par 4 : $2026 = 4 \\times 506 + 2$, le reste est $2$ et non $0$.",
+            "c": "Le reste de la division de $2026$ par $4$ est $2$, pas $1$.",
+            "d": "$-i$ correspond à un reste de $3$ ; ici le reste vaut $2$."
+          }
+        },
+        "solution": "$2026 = 4 \\times 506 + 2$ donc $i^{2026} = (i^4)^{506} \\times i^2 = i^2 = -1$.",
+        "hint": "Divisez $2026$ par $4$ et gardez le reste."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L01-E5",
+        "type": "METHOD",
+        "skill": "Opérations",
+        "payload": {
+          "prompt": "Calculer $(2 + i)^2$ sous forme algébrique. À chaque étape, choisissez la bonne action.",
+          "stages": [
+            {
+              "question": "Première étape",
+              "options": [
+                { "id": "s1a", "text": "Développer : $2^2 + 2\\times 2\\times i + i^2$" },
+                { "id": "s1b", "text": "Écrire $(2+i)^2 = 2^2 + i^2$" },
+                { "id": "s1c", "text": "Calculer le module de $2 + i$" }
+              ]
+            },
+            {
+              "question": "Que faire de $i^2$ ?",
+              "options": [
+                { "id": "s2a", "text": "Le remplacer par $1$" },
+                { "id": "s2b", "text": "Le remplacer par $-1$" },
+                { "id": "s2c", "text": "Le laisser tel quel" }
+              ]
+            },
+            {
+              "question": "Conclusion",
+              "options": [
+                { "id": "s3a", "text": "$3 + 4i$" },
+                { "id": "s3b", "text": "$5 + 4i$" },
+                { "id": "s3c", "text": "$3 + 2i$" }
+              ]
+            }
+          ]
+        },
+        "answer": {
+          "order": ["s1a", "s2b", "s3a"],
+          "feedback": {
+            "s1b": "Erreur classique : $(a+b)^2 \\neq a^2 + b^2$, il manque le double produit $2ab$.",
+            "s1c": "Le module n’est pas utile pour obtenir la forme algébrique.",
+            "s2a": "$i^2$ vaut $-1$, pas $1$.",
+            "s2c": "Il faut remplacer $i^2$ pour obtenir une forme $a + bi$.",
+            "s3b": "$4 + 4i + i^2 = 4 + 4i - 1$ : on soustrait $1$, on n’ajoute pas.",
+            "s3c": "Le terme $2ab\\,i$ vaut $4i$ : la partie imaginaire est $4$."
+          }
+        },
+        "solution": "$(2+i)^2 = 4 + 4i + i^2 = 4 + 4i - 1 = 3 + 4i$.",
+        "hint": "Utilisez l’identité remarquable $(a+b)^2 = a^2 + 2ab + b^2$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L01-E6",
+        "type": "QCM",
+        "skill": "Puissances de i",
+        "payload": {
+          "prompt": "Quelles égalités sont vraies ? (plusieurs réponses possibles)",
+          "multiple": true,
+          "options": [
+            { "id": "a", "text": "$i^2 = -1$" },
+            { "id": "b", "text": "$i^3 = -i$" },
+            { "id": "c", "text": "$i^4 = i$" },
+            { "id": "d", "text": "$(1 + i)^2 = 2i$" }
+          ]
+        },
+        "answer": {
+          "correct": ["a", "b", "d"],
+          "feedback": {
+            "a": "$i^2 = -1$ est la définition de $i$.",
+            "b": "$i^3 = i^2 \\times i = -i$.",
+            "c": "$i^4 = (i^2)^2 = (-1)^2 = 1$, et non $i$.",
+            "d": "$(1+i)^2 = 1 + 2i + i^2 = 2i$."
+          }
+        },
+        "solution": "$i^4 = 1$, donc l’égalité c est fausse ; les égalités a, b et d sont vraies.",
+        "hint": "Calculez $i^4$ à partir de $i^2 = -1$."
+      }
+    }
+  ]
+}

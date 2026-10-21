@@ -1,0 +1,192 @@
+{
+  "code": "L02",
+  "part": 1,
+  "position": 2,
+  "title": "Conjugué et module d’un nombre complexe",
+  "kind": "LESSON",
+  "status": "draft",
+  "steps": [
+    {
+      "type": "EXPLANATION",
+      "title": "Conjugué d’un nombre complexe",
+      "body": "Le **conjugué** de $z = a + bi$ est le nombre $\\overline{z} = a - bi$.\n\nPour $z = a + bi$ :\n\n- $z + \\overline{z} = 2a$ et $z - \\overline{z} = 2bi$ ;\n- $z\\,\\overline{z} = a^2 + b^2$, un réel positif ou nul ;\n- $z$ est réel si et seulement si $\\overline{z} = z$ ;\n- $\\overline{z + z'} = \\overline{z} + \\overline{z'}$ et $\\overline{z\\,z'} = \\overline{z}\\,\\overline{z'}$.",
+      "example": {
+        "statement": "Pour $z = 3 + 4i$, déterminer $\\overline{z}$ et $z\\,\\overline{z}$.",
+        "solution": "$\\overline{z} = 3 - 4i$ et $z\\,\\overline{z} = (3+4i)(3-4i) = 9 - 16i^2 = 9 + 16 = 25$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L02-E1",
+        "type": "QCM",
+        "skill": "Conjugué",
+        "payload": {
+          "prompt": "Quel est le conjugué de $z = -2 + 5i$ ?",
+          "multiple": false,
+          "options": [
+            { "id": "a", "text": "$-2 - 5i$" },
+            { "id": "b", "text": "$2 - 5i$" },
+            { "id": "c", "text": "$2 + 5i$" },
+            { "id": "d", "text": "$-2 + 5i$" }
+          ]
+        },
+        "answer": {
+          "correct": ["a"],
+          "feedback": {
+            "b": "Seul le signe de la partie imaginaire change : la partie réelle reste $-2$.",
+            "c": "C’est l’opposé de $z$, pas son conjugué.",
+            "d": "C’est $z$ lui-même : il faut changer le signe de la partie imaginaire."
+          }
+        },
+        "solution": "$\\overline{z} = -2 - 5i$.",
+        "hint": "Le conjugué change uniquement le signe de la partie imaginaire."
+      }
+    },
+    {
+      "type": "EXPLANATION",
+      "title": "Module d’un nombre complexe",
+      "body": "Le **module** de $z = a + bi$ est le réel positif $|z| = \\sqrt{a^2 + b^2}$. On a donc $|z|^2 = z\\,\\overline{z}$.\n\nPropriétés :\n\n- $|z\\,z'| = |z|\\,|z'|$ ;\n- $\\left|\\dfrac{z}{z'}\\right| = \\dfrac{|z|}{|z'|}$ si $z' \\neq 0$ ;\n- $|\\overline{z}| = |z|$ ;\n- $|z| = 0 \\iff z = 0$.",
+      "example": {
+        "statement": "Calculer $|3 - 4i|$ et $|1 + i|$.",
+        "solution": "$|3-4i| = \\sqrt{9 + 16} = 5$ et $|1+i| = \\sqrt{1 + 1} = \\sqrt{2}$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L02-E2",
+        "type": "NUMERIC",
+        "skill": "Module",
+        "payload": {
+          "prompt": "Calculer $|5 - 12i|$.",
+          "format": "real",
+          "placeholder": "ex. 13"
+        },
+        "answer": { "value": 13, "tolerance": 0.0001 },
+        "solution": "$|5-12i| = \\sqrt{25 + 144} = \\sqrt{169} = 13$.",
+        "hint": "Utilisez $|a + bi| = \\sqrt{a^2 + b^2}$."
+      }
+    },
+    {
+      "type": "EXPLANATION",
+      "title": "Quotient et inégalité triangulaire",
+      "body": "Pour écrire $\\dfrac{1}{z}$ ou $\\dfrac{z}{z'}$ sous forme algébrique, on multiplie le numérateur et le dénominateur par le conjugué du dénominateur : celui-ci devient le réel $|z'|^2$.\n\nPour tous complexes $z$ et $z'$, on a l’**inégalité triangulaire** : $|z + z'| \\leq |z| + |z'|$.",
+      "example": {
+        "statement": "Écrire $\\dfrac{1}{1 + 2i}$ sous forme algébrique.",
+        "solution": "$\\dfrac{1}{1+2i} = \\dfrac{1-2i}{(1+2i)(1-2i)} = \\dfrac{1-2i}{5} = \\dfrac{1}{5} - \\dfrac{2}{5}\\,i$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L02-E3",
+        "type": "NUMERIC",
+        "skill": "Quotient",
+        "payload": {
+          "prompt": "Écrire $\\dfrac{1}{1 + i}$ sous forme algébrique.",
+          "format": "complex",
+          "placeholder": "ex. 1/2 - 1/2 i"
+        },
+        "answer": { "re": 0.5, "im": -0.5, "tolerance": 0.001 },
+        "solution": "$\\dfrac{1}{1+i} = \\dfrac{1-i}{(1+i)(1-i)} = \\dfrac{1-i}{2} = \\dfrac12 - \\dfrac12\\,i$.",
+        "hint": "Multipliez numérateur et dénominateur par le conjugué du dénominateur."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L02-E4",
+        "type": "QCM",
+        "skill": "Conjugué",
+        "payload": {
+          "prompt": "Quelles affirmations sont vraies pour tout nombre complexe $z$ ? (plusieurs réponses possibles)",
+          "multiple": true,
+          "options": [
+            { "id": "a", "text": "$z\\,\\overline{z}$ est un réel positif ou nul" },
+            { "id": "b", "text": "$|\\overline{z}| = |z|$" },
+            { "id": "c", "text": "$z + \\overline{z}$ est un imaginaire pur" },
+            { "id": "d", "text": "$|z|^2 = z^2$" }
+          ]
+        },
+        "answer": {
+          "correct": ["a", "b"],
+          "feedback": {
+            "a": "$z\\,\\overline{z} = a^2 + b^2 \\geq 0$.",
+            "b": "$|\\overline{z}| = \\sqrt{a^2 + (-b)^2} = |z|$.",
+            "c": "$z + \\overline{z} = 2a$ est un réel, pas un imaginaire pur.",
+            "d": "$|z|^2 = z\\,\\overline{z}$, et non $z^2$ (par exemple $z = i$ : $|z|^2 = 1$ mais $z^2 = -1$)."
+          }
+        },
+        "solution": "$z\\,\\overline{z} = |z|^2 \\geq 0$ et $|\\overline{z}| = |z|$ sont vraies ; $z + \\overline{z} = 2\\operatorname{Re}(z)$ est réel et $|z|^2 = z\\,\\overline{z} \\neq z^2$ en général.",
+        "hint": "Testez chaque affirmation avec $z = i$ et avec $z = a + bi$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L02-E5",
+        "type": "METHOD",
+        "skill": "Quotient",
+        "payload": {
+          "prompt": "Écrire $\\dfrac{2 + i}{1 - i}$ sous forme algébrique. À chaque étape, choisissez la bonne action.",
+          "stages": [
+            {
+              "question": "Comment faire disparaître $i$ du dénominateur ?",
+              "options": [
+                { "id": "s1a", "text": "Multiplier numérateur et dénominateur par $1 + i$" },
+                { "id": "s1b", "text": "Multiplier numérateur et dénominateur par $1 - i$" },
+                { "id": "s1c", "text": "Multiplier seulement le numérateur par $1 + i$" }
+              ]
+            },
+            {
+              "question": "Résultat du calcul",
+              "options": [
+                { "id": "s2a", "text": "$\\dfrac{(2+i)(1+i)}{(1-i)(1+i)} = \\dfrac{1 + 3i}{2}$" },
+                { "id": "s2b", "text": "$\\dfrac{(2+i)(1+i)}{(1-i)(1+i)} = \\dfrac{3 + 3i}{2}$" },
+                { "id": "s2c", "text": "$\\dfrac{(2+i)(1+i)}{(1-i)(1+i)} = \\dfrac{1 + 3i}{-2}$" }
+              ]
+            },
+            {
+              "question": "Forme algébrique",
+              "options": [
+                { "id": "s3a", "text": "$\\dfrac{1}{2} + \\dfrac{3}{2}\\,i$" },
+                { "id": "s3b", "text": "$1 + 3i$" },
+                { "id": "s3c", "text": "$\\dfrac{1}{2} + 3i$" }
+              ]
+            }
+          ]
+        },
+        "answer": {
+          "order": ["s1a", "s2a", "s3a"],
+          "feedback": {
+            "s1b": "$(1-i)^2 = -2i$ n’est pas un réel. Il faut multiplier par le conjugué $1 + i$.",
+            "s1c": "Multiplier seulement le numérateur change la valeur de la fraction.",
+            "s2b": "N’oubliez pas $i^2 = -1$ au numérateur : $2 + 2i + i + i^2 = 1 + 3i$.",
+            "s2c": "Le dénominateur $(1-i)(1+i) = 1 - i^2 = 2$ est positif.",
+            "s3b": "Il faut aussi diviser la partie réelle et la partie imaginaire par $2$.",
+            "s3c": "La partie imaginaire doit aussi être divisée par $2$."
+          }
+        },
+        "solution": "$\\dfrac{2+i}{1-i} = \\dfrac{(2+i)(1+i)}{(1-i)(1+i)} = \\dfrac{1+3i}{2} = \\dfrac12 + \\dfrac32\\,i$.",
+        "hint": "Le produit d’un nombre complexe par son conjugué est un réel."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L02-E6",
+        "type": "NUMERIC",
+        "skill": "Module",
+        "payload": {
+          "prompt": "Calculer $|(1 + i)(1 - 2i)|$. Donnez une valeur exacte (par exemple sqrt(10)) ou une valeur approchée à $10^{-2}$ près.",
+          "format": "real",
+          "placeholder": "ex. sqrt(10)"
+        },
+        "answer": { "value": 3.1622776601683795, "tolerance": 0.01 },
+        "solution": "$|(1+i)(1-2i)| = |1+i|\\,|1-2i| = \\sqrt{2}\\times\\sqrt{5} = \\sqrt{10} \\approx 3{,}16$.",
+        "hint": "Le module d’un produit est le produit des modules."
+      }
+    }
+  ]
+}
