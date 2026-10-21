@@ -1,0 +1,151 @@
+{
+  "code": "L03",
+  "part": 1,
+  "position": 3,
+  "title": "Plan complexe : affixe d’un point et d’un vecteur",
+  "kind": "LESSON",
+  "status": "draft",
+  "steps": [
+    {
+      "type": "EXPLANATION",
+      "title": "Affixe d’un point, d’un vecteur",
+      "body": "Le plan est muni d’un repère orthonormé direct $(O ;\\, \\vec{u}, \\vec{v})$.\n\n- Le point $M(a, b)$ a pour **affixe** $z_M = a + bi$ ;\n- le vecteur $\\vec{w}(a, b)$ a pour affixe $z_{\\vec{w}} = a + bi$ ;\n- l’affixe de $\\overrightarrow{AB}$ est $z_B - z_A$ ;\n- le milieu $I$ de $[AB]$ a pour affixe $\\dfrac{z_A + z_B}{2}$ ;\n- la distance $AB$ vaut $|z_B - z_A|$.",
+      "example": {
+        "statement": "Soit $A(1 + 2i)$ et $B(4 + 6i)$. Calculer l’affixe de $\\overrightarrow{AB}$ et la distance $AB$.",
+        "solution": "$z_{\\overrightarrow{AB}} = (4 + 6i) - (1 + 2i) = 3 + 4i$ et $AB = |3 + 4i| = \\sqrt{9 + 16} = 5$."
+      }
+    },
+    {
+      "type": "EXPLANATION",
+      "title": "Module, conjugué et symétries",
+      "body": "Pour un point $M$ d’affixe $z$ :\n\n- $|z| = OM$ ;\n- $M'$ d’affixe $\\overline{z}$ est le symétrique de $M$ par rapport à l’axe des abscisses ;\n- $M''$ d’affixe $-z$ est le symétrique de $M$ par rapport à l’origine $O$.",
+      "example": {
+        "statement": "Soit $M$ d’affixe $z = 2 - 3i$. Donner les affixes de ses symétriques par rapport à l’axe des abscisses et à $O$.",
+        "solution": "Par rapport à l’axe des abscisses : $\\overline{z} = 2 + 3i$. Par rapport à $O$ : $-z = -2 + 3i$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L03-E1",
+        "type": "QCM",
+        "skill": "Plan complexe",
+        "payload": {
+          "prompt": "Quelle est l’affixe du point $M(-3, 2)$ ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "$-3 + 2i$"
+            },
+            {
+              "id": "b",
+              "text": "$2 - 3i$"
+            },
+            {
+              "id": "c",
+              "text": "$-3 - 2i$"
+            },
+            {
+              "id": "d",
+              "text": "$3 - 2i$"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "a"
+          ],
+          "feedback": {
+            "b": "Les rôles sont inversés : l’abscisse est la partie réelle, l’ordonnée la partie imaginaire.",
+            "c": "L’ordonnée de $M$ est $2$ et non $-2$.",
+            "d": "C’est l’affixe du symétrique de $M$ par rapport à $O$."
+          }
+        },
+        "solution": "$M(-3, 2)$ a pour affixe $-3 + 2i$.",
+        "hint": "$z = a + bi$ pour $M(a, b)$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L03-E2",
+        "type": "NUMERIC",
+        "skill": "Plan complexe",
+        "payload": {
+          "prompt": "Soit $A(2 - i)$ et $B(-1 + 3i)$. Donner l’affixe de $\\overrightarrow{AB}$ sous forme algébrique.",
+          "format": "complex",
+          "placeholder": "ex. -3 + 4i"
+        },
+        "answer": {
+          "re": -3,
+          "im": 4,
+          "tolerance": 0.001
+        },
+        "solution": "$z_{\\overrightarrow{AB}} = z_B - z_A = (-1 + 3i) - (2 - i) = -3 + 4i$.",
+        "hint": "L’affixe de $\\overrightarrow{AB}$ est $z_B - z_A$ (arrivée moins départ)."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L03-E3",
+        "type": "NUMERIC",
+        "skill": "Module",
+        "payload": {
+          "prompt": "Avec les mêmes points $A(2 - i)$ et $B(-1 + 3i)$, calculer la distance $AB$.",
+          "format": "real",
+          "placeholder": "ex. 5"
+        },
+        "answer": {
+          "value": 5,
+          "tolerance": 0.0001
+        },
+        "solution": "$AB = |-3 + 4i| = \\sqrt{9 + 16} = 5$.",
+        "hint": "$AB = |z_B - z_A|$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L03-E4",
+        "type": "QCM",
+        "skill": "Plan complexe",
+        "payload": {
+          "prompt": "Avec $A(2 - i)$ et $B(-1 + 3i)$, quelle est l’affixe du milieu de $[AB]$ ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "$1 + 2i$"
+            },
+            {
+              "id": "b",
+              "text": "$\\dfrac{1}{2} + i$"
+            },
+            {
+              "id": "c",
+              "text": "$-\\dfrac{3}{2} + 2i$"
+            },
+            {
+              "id": "d",
+              "text": "$\\dfrac{3}{2} - 2i$"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "b"
+          ],
+          "feedback": {
+            "a": "Vous avez oublié de diviser la somme $z_A + z_B$ par $2$.",
+            "c": "C’est la moitié du vecteur $\\overrightarrow{AB}$, pas le milieu.",
+            "d": "Vous avez soustrait au lieu d’additionner : le milieu est $\\dfrac{z_A + z_B}{2}$."
+          }
+        },
+        "solution": "$\\dfrac{z_A + z_B}{2} = \\dfrac{(2 - i) + (-1 + 3i)}{2} = \\dfrac{1 + 2i}{2} = \\dfrac{1}{2} + i$.",
+        "hint": "Le milieu a pour affixe la demi-somme des affixes."
+      }
+    }
+  ]
+}

@@ -25,6 +25,9 @@ class ComplexParserTest {
             "sqrt(2)/2 + sqrt(2)/2 i; 0.70710678; 0.70710678",
             "√3 + i; 1.7320508; 1",
             "i/2 + 1/2; 0.5; 0.5",
+            "pi/4; 0.78539816; 0",
+            "3π/4; 2.35619449; 0",
+            "-pi/2; -1.57079633; 0",
     })
     void parsesEquivalentWritings(String input, double re, double im) {
         Complex c = ComplexParser.parse(input).value();

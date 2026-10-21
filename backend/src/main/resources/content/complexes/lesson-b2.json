@@ -1,0 +1,120 @@
+{
+  "code": "B2",
+  "part": 2,
+  "position": 9,
+  "title": "Exercice final — Partie 2",
+  "kind": "BOSS",
+  "status": "draft",
+  "steps": [
+    {
+      "type": "EXPLANATION",
+      "title": "Exercice final : partie 2",
+      "body": "Cet exercice mélange la forme trigonométrique, la notation exponentielle et les transformations du plan. Chaque réussite rapporte un bonus d’XP.",
+      "example": {
+        "statement": "Donner la forme exponentielle de $-1$.",
+        "solution": "$-1 = 1\\times(\\cos\\pi + i\\sin\\pi) = e^{i\\pi}$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "B2-E1",
+        "type": "NUMERIC",
+        "skill": "Argument",
+        "payload": {
+          "prompt": "Donner l’argument de $z = -\\sqrt{3} + i$ appartenant à $]-\\pi ;\\, \\pi]$ (exact ou approché à $10^{-2}$ près).",
+          "format": "real",
+          "placeholder": "ex. 5pi/6"
+        },
+        "answer": {
+          "value": 2.6179938779914944,
+          "tolerance": 0.01
+        },
+        "solution": "$|z| = 2$, $\\cos\\theta = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\theta = \\dfrac{1}{2}$ donc $\\theta = \\dfrac{5\\pi}{6}$.",
+        "hint": "Calculez $|z|$ puis $\\cos\\theta$ et $\\sin\\theta$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "B2-E2",
+        "type": "NUMERIC",
+        "skill": "Moivre",
+        "payload": {
+          "prompt": "Calculer $\\left(1 + i\\sqrt{3}\\right)^3$ sous forme algébrique.",
+          "format": "complex",
+          "placeholder": "ex. -8"
+        },
+        "answer": {
+          "re": -8,
+          "im": 0,
+          "tolerance": 0.001
+        },
+        "solution": "$1 + i\\sqrt{3} = 2\\,e^{i\\pi/3}$ donc $\\left(1 + i\\sqrt{3}\\right)^3 = 8\\,e^{i\\pi} = -8$.",
+        "hint": "Écrivez $1 + i\\sqrt{3}$ sous forme exponentielle."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "B2-E3",
+        "type": "NUMERIC",
+        "skill": "Rotation",
+        "payload": {
+          "prompt": "Donner l’affixe de l’image de $M(3 + i)$ par la rotation de centre $A(1 + i)$ et d’angle $\\dfrac{\\pi}{2}$.",
+          "format": "complex",
+          "placeholder": "ex. 1 + 3i"
+        },
+        "answer": {
+          "re": 1,
+          "im": 3,
+          "tolerance": 0.001
+        },
+        "solution": "$z' - (1 + i) = i\\big((3 + i) - (1 + i)\\big) = 2i$ donc $z' = 1 + 3i$.",
+        "hint": "$z' - \\omega = e^{i\\pi/2}(z - \\omega)$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "B2-E4",
+        "type": "QCM",
+        "skill": "Forme exponentielle",
+        "payload": {
+          "prompt": "Quelle est la forme exponentielle de $z = 1 + i$ ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "$\\sqrt{2}\\,e^{i\\pi/4}$"
+            },
+            {
+              "id": "b",
+              "text": "$2\\,e^{i\\pi/4}$"
+            },
+            {
+              "id": "c",
+              "text": "$\\sqrt{2}\\,e^{i\\pi/2}$"
+            },
+            {
+              "id": "d",
+              "text": "$e^{i\\pi/4}$"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "a"
+          ],
+          "feedback": {
+            "b": "Le module est $\\sqrt{1 + 1} = \\sqrt{2}$, pas $2$.",
+            "c": "$\\dfrac{\\pi}{2}$ est l’argument de $i$ ; ici $\\cos\\theta = \\sin\\theta$.",
+            "d": "Le module de $1 + i$ n’est pas $1$ : $|1 + i| = \\sqrt{2}$."
+          }
+        },
+        "solution": "$|1 + i| = \\sqrt{2}$ et $\\arg(1 + i) = \\dfrac{\\pi}{4}$ donc $1 + i = \\sqrt{2}\\,e^{i\\pi/4}$.",
+        "hint": "Calculez le module puis l’argument."
+      }
+    }
+  ]
+}

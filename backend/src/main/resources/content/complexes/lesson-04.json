@@ -1,0 +1,190 @@
+{
+  "code": "L04",
+  "part": 1,
+  "position": 4,
+  "title": "Équations du second degré dans ℂ",
+  "kind": "LESSON",
+  "status": "draft",
+  "steps": [
+    {
+      "type": "EXPLANATION",
+      "title": "Résolution de $az^2 + bz + c = 0$",
+      "body": "Soit $a, b, c$ réels avec $a \\neq 0$ et $\\Delta = b^2 - 4ac$.\n\n- Si $\\Delta > 0$ : deux solutions réelles $\\dfrac{-b \\pm \\sqrt{\\Delta}}{2a}$ ;\n- si $\\Delta = 0$ : une solution double $-\\dfrac{b}{2a}$ ;\n- si $\\Delta < 0$ : deux solutions complexes conjuguées $\\dfrac{-b \\pm i\\sqrt{-\\Delta}}{2a}$.",
+      "example": {
+        "statement": "Résoudre dans $\\mathbb{C}$ : $z^2 + 2z + 5 = 0$.",
+        "solution": "$\\Delta = 4 - 20 = -16 < 0$ et $\\sqrt{-\\Delta} = 4$. Les solutions sont $z = \\dfrac{-2 \\pm 4i}{2} = -1 \\pm 2i$."
+      }
+    },
+    {
+      "type": "EXPLANATION",
+      "title": "Somme et produit des solutions",
+      "body": "Si $z_1$ et $z_2$ sont les solutions de $az^2 + bz + c = 0$, alors $z_1 + z_2 = -\\dfrac{b}{a}$ et $z_1 z_2 = \\dfrac{c}{a}$. On peut s’en servir pour vérifier un résultat.",
+      "example": {
+        "statement": "Résoudre $z^2 - 2z + 2 = 0$ et vérifier.",
+        "solution": "$\\Delta = 4 - 8 = -4$, donc $z = \\dfrac{2 \\pm 2i}{2} = 1 \\pm i$. Vérification : $(1+i) + (1-i) = 2$ et $(1+i)(1-i) = 2$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L04-E1",
+        "type": "QCM",
+        "skill": "Second degré",
+        "payload": {
+          "prompt": "Combien de solutions dans $\\mathbb{C}$ l’équation $z^2 + z + 1 = 0$ admet-elle ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "Aucune solution"
+            },
+            {
+              "id": "b",
+              "text": "Une solution double"
+            },
+            {
+              "id": "c",
+              "text": "Deux solutions réelles"
+            },
+            {
+              "id": "d",
+              "text": "Deux solutions complexes conjuguées non réelles"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "d"
+          ],
+          "feedback": {
+            "a": "Dans $\\mathbb{C}$, une équation du second degré a toujours au moins une solution.",
+            "b": "$\\Delta = 1 - 4 = -3 \\neq 0$ : il n’y a pas de solution double.",
+            "c": "$\\Delta = -3 < 0$ : les solutions ne sont pas réelles."
+          }
+        },
+        "solution": "$\\Delta = 1 - 4 = -3 < 0$ : deux solutions complexes conjuguées non réelles.",
+        "hint": "Calculez $\\Delta = b^2 - 4ac$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L04-E2",
+        "type": "NUMERIC",
+        "skill": "Second degré",
+        "payload": {
+          "prompt": "Calculer le discriminant de $z^2 - 4z + 13 = 0$.",
+          "format": "real",
+          "placeholder": "ex. -36"
+        },
+        "answer": {
+          "value": -36,
+          "tolerance": 0.0001
+        },
+        "solution": "$\\Delta = (-4)^2 - 4 \\times 1 \\times 13 = 16 - 52 = -36$.",
+        "hint": "$\\Delta = b^2 - 4ac$ avec $b = -4$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L04-E3",
+        "type": "NUMERIC",
+        "skill": "Second degré",
+        "payload": {
+          "prompt": "Résoudre $z^2 - 4z + 13 = 0$ : donner la solution dont la partie imaginaire est positive.",
+          "format": "complex",
+          "placeholder": "ex. 2 + 3i"
+        },
+        "answer": {
+          "re": 2,
+          "im": 3,
+          "tolerance": 0.001
+        },
+        "solution": "$\\Delta = -36$ donc $z = \\dfrac{4 \\pm 6i}{2} = 2 \\pm 3i$. La solution à partie imaginaire positive est $2 + 3i$.",
+        "hint": "Utilisez $z = \\dfrac{-b \\pm i\\sqrt{-\\Delta}}{2a}$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L04-E4",
+        "type": "METHOD",
+        "skill": "Second degré",
+        "payload": {
+          "prompt": "Résoudre $z^2 + 2z + 10 = 0$ dans $\\mathbb{C}$. À chaque étape, choisissez la bonne action.",
+          "stages": [
+            {
+              "question": "Discriminant",
+              "options": [
+                {
+                  "id": "s1a",
+                  "text": "$\\Delta = 2^2 - 4 \\times 1 \\times 10 = -36$"
+                },
+                {
+                  "id": "s1b",
+                  "text": "$\\Delta = 2^2 + 4 \\times 1 \\times 10 = 44$"
+                },
+                {
+                  "id": "s1c",
+                  "text": "$\\Delta = 2 - 40 = -38$"
+                }
+              ]
+            },
+            {
+              "question": "Interprétation",
+              "options": [
+                {
+                  "id": "s2a",
+                  "text": "$\\Delta < 0$ : l’équation n’a pas de solution"
+                },
+                {
+                  "id": "s2b",
+                  "text": "$\\Delta < 0$ : deux solutions conjuguées $\\dfrac{-b \\pm i\\sqrt{-\\Delta}}{2a}$"
+                },
+                {
+                  "id": "s2c",
+                  "text": "$\\Delta < 0$ : une solution double $-\\dfrac{b}{2a}$"
+                }
+              ]
+            },
+            {
+              "question": "Solutions",
+              "options": [
+                {
+                  "id": "s3a",
+                  "text": "$-1 + 3i$ et $-1 - 3i$"
+                },
+                {
+                  "id": "s3b",
+                  "text": "$-2 + 6i$ et $-2 - 6i$"
+                },
+                {
+                  "id": "s3c",
+                  "text": "$1 + 3i$ et $1 - 3i$"
+                }
+              ]
+            }
+          ]
+        },
+        "answer": {
+          "order": [
+            "s1a",
+            "s2b",
+            "s3a"
+          ],
+          "feedback": {
+            "s1b": "Le terme $-4ac$ est soustrait : $\\Delta = b^2 - 4ac$.",
+            "s1c": "Il faut calculer $b^2 = 4$ et $4ac = 40$ séparément : $4 - 40 = -36$.",
+            "s2a": "Dans $\\mathbb{C}$, il y a toujours des solutions : elles sont complexes si $\\Delta < 0$.",
+            "s2c": "Une solution double correspond à $\\Delta = 0$.",
+            "s3b": "Vous avez oublié de diviser par $2a = 2$.",
+            "s3c": "Attention au signe : $-\\dfrac{b}{2a} = -1$."
+          }
+        },
+        "solution": "$\\Delta = 4 - 40 = -36$, $\\sqrt{-\\Delta} = 6$, donc $z = \\dfrac{-2 \\pm 6i}{2} = -1 \\pm 3i$.",
+        "hint": "Pour $\\Delta < 0$, les solutions sont $\\dfrac{-b \\pm i\\sqrt{-\\Delta}}{2a}$."
+      }
+    }
+  ]
+}

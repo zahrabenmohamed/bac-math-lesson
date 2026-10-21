@@ -1,0 +1,194 @@
+{
+  "code": "L06",
+  "part": 2,
+  "position": 7,
+  "title": "Notation exponentielle, formules de Moivre et d’Euler",
+  "kind": "LESSON",
+  "status": "draft",
+  "steps": [
+    {
+      "type": "EXPLANATION",
+      "title": "Notation exponentielle",
+      "body": "Pour tout réel $\\theta$, on note $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$. Tout complexe non nul s’écrit $z = r\\,e^{i\\theta}$ avec $r = |z|$ et $\\theta$ un argument.\n\n- $e^{i\\theta}\\,e^{i\\theta'} = e^{i(\\theta + \\theta')}$ ;\n- $\\dfrac{1}{e^{i\\theta}} = e^{-i\\theta}$ ;\n- $|e^{i\\theta}| = 1$.",
+      "example": {
+        "statement": "Donner la forme algébrique de $e^{i\\pi/2}$ et de $e^{i\\pi}$.",
+        "solution": "$e^{i\\pi/2} = \\cos\\dfrac{\\pi}{2} + i\\sin\\dfrac{\\pi}{2} = i$ et $e^{i\\pi} = \\cos\\pi + i\\sin\\pi = -1$."
+      }
+    },
+    {
+      "type": "EXPLANATION",
+      "title": "Formules de Moivre et d’Euler",
+      "body": "**Moivre** : pour tout entier $n$, $(\\cos\\theta + i\\sin\\theta)^n = \\cos n\\theta + i\\sin n\\theta$, soit $(e^{i\\theta})^n = e^{in\\theta}$.\n\n**Euler** : $\\cos\\theta = \\dfrac{e^{i\\theta} + e^{-i\\theta}}{2}$ et $\\sin\\theta = \\dfrac{e^{i\\theta} - e^{-i\\theta}}{2i}$.",
+      "example": {
+        "statement": "Calculer $(1 + i)^4$.",
+        "solution": "$1 + i = \\sqrt{2}\\,e^{i\\pi/4}$ donc $(1+i)^4 = (\\sqrt{2})^4\\,e^{i\\pi} = 4 \\times (-1) = -4$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L06-E1",
+        "type": "QCM",
+        "skill": "Notation exponentielle",
+        "payload": {
+          "prompt": "Que vaut $e^{i\\pi}$ ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "$-1$"
+            },
+            {
+              "id": "b",
+              "text": "$1$"
+            },
+            {
+              "id": "c",
+              "text": "$i$"
+            },
+            {
+              "id": "d",
+              "text": "$-i$"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "a"
+          ],
+          "feedback": {
+            "b": "$1 = e^{i0}$ ; ici l’argument est $\\pi$.",
+            "c": "$i = e^{i\\pi/2}$.",
+            "d": "$-i = e^{-i\\pi/2}$."
+          }
+        },
+        "solution": "$e^{i\\pi} = \\cos\\pi + i\\sin\\pi = -1$.",
+        "hint": "Utilisez $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L06-E2",
+        "type": "NUMERIC",
+        "skill": "Notation exponentielle",
+        "payload": {
+          "prompt": "Donner la forme algébrique de $2\\,e^{i\\pi/3}$.",
+          "format": "complex",
+          "placeholder": "ex. 1 + sqrt(3) i"
+        },
+        "answer": {
+          "re": 1,
+          "im": 1.7320508075688772,
+          "tolerance": 0.001
+        },
+        "solution": "$2\\left(\\cos\\dfrac{\\pi}{3} + i\\sin\\dfrac{\\pi}{3}\\right) = 2\\left(\\dfrac{1}{2} + i\\dfrac{\\sqrt{3}}{2}\\right) = 1 + i\\sqrt{3}$.",
+        "hint": "$\\cos\\dfrac{\\pi}{3} = \\dfrac{1}{2}$ et $\\sin\\dfrac{\\pi}{3} = \\dfrac{\\sqrt{3}}{2}$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L06-E3",
+        "type": "NUMERIC",
+        "skill": "Moivre",
+        "payload": {
+          "prompt": "Calculer $(1 + i)^4$ sous forme algébrique.",
+          "format": "complex",
+          "placeholder": "ex. -4"
+        },
+        "answer": {
+          "re": -4,
+          "im": 0,
+          "tolerance": 0.001
+        },
+        "solution": "$(1+i)^4 = \\big(\\sqrt{2}\\,e^{i\\pi/4}\\big)^4 = 4\\,e^{i\\pi} = -4$.",
+        "hint": "Passez par la forme exponentielle de $1 + i$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L06-E4",
+        "type": "QCM",
+        "skill": "Moivre",
+        "payload": {
+          "prompt": "Que vaut $\\left(e^{i\\pi/6}\\right)^{12}$ ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "$1$"
+            },
+            {
+              "id": "b",
+              "text": "$-1$"
+            },
+            {
+              "id": "c",
+              "text": "$i$"
+            },
+            {
+              "id": "d",
+              "text": "$-i$"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "a"
+          ],
+          "feedback": {
+            "b": "$12 \\times \\dfrac{\\pi}{6} = 2\\pi$ et non $\\pi$.",
+            "c": "$e^{i\\pi/2} = i$ correspond à un argument $\\dfrac{\\pi}{2}$ ; ici l’argument est $2\\pi$.",
+            "d": "$-i$ correspond à un argument $-\\dfrac{\\pi}{2}$."
+          }
+        },
+        "solution": "$\\left(e^{i\\pi/6}\\right)^{12} = e^{2i\\pi} = 1$.",
+        "hint": "Multipliez l’argument par l’exposant."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L06-E5",
+        "type": "QCM",
+        "skill": "Formules d’Euler",
+        "payload": {
+          "prompt": "Quelle formule donne $\\cos\\theta$ ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "$\\dfrac{e^{i\\theta} + e^{-i\\theta}}{2}$"
+            },
+            {
+              "id": "b",
+              "text": "$\\dfrac{e^{i\\theta} - e^{-i\\theta}}{2}$"
+            },
+            {
+              "id": "c",
+              "text": "$\\dfrac{e^{i\\theta} + e^{-i\\theta}}{2i}$"
+            },
+            {
+              "id": "d",
+              "text": "$e^{i\\theta} + e^{-i\\theta}$"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "a"
+          ],
+          "feedback": {
+            "b": "Cette expression vaut $i\\sin\\theta$, pas $\\cos\\theta$.",
+            "c": "Le facteur $2i$ au dénominateur ne convient pas à une somme.",
+            "d": "Cette somme vaut $2\\cos\\theta$ : il manque la division par $2$."
+          }
+        },
+        "solution": "$e^{i\\theta} + e^{-i\\theta} = 2\\cos\\theta$ donc $\\cos\\theta = \\dfrac{e^{i\\theta} + e^{-i\\theta}}{2}$.",
+        "hint": "Additionnez $e^{i\\theta}$ et $e^{-i\\theta}$."
+      }
+    }
+  ]
+}

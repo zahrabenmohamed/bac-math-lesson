@@ -28,12 +28,12 @@ class ContentLoaderTest {
     @Test
     void loadsChapterLessonsStepsAndExercises() {
         assertThat(count("chapters")).isEqualTo(1);
-        assertThat(count("lessons")).isEqualTo(2);
-        assertThat(count("exercises")).isEqualTo(12);
+        assertThat(count("lessons")).isEqualTo(9);
+        assertThat(count("exercises")).isEqualTo(41);
         long explanations = jdbc.sql("SELECT COUNT(*) FROM steps WHERE type = 'EXPLANATION'").query(Long.class).single();
         long exerciseSteps = jdbc.sql("SELECT COUNT(*) FROM steps WHERE type = 'EXERCISE'").query(Long.class).single();
-        assertThat(explanations).isEqualTo(7);
-        assertThat(exerciseSteps).isEqualTo(12);
+        assertThat(explanations).isEqualTo(19);
+        assertThat(exerciseSteps).isEqualTo(41);
     }
 
     @Test
@@ -41,10 +41,37 @@ class ContentLoaderTest {
         List<Long> before = jdbc.sql("SELECT id FROM exercises ORDER BY id").query(Long.class).list();
         loader.load();
         loader.load();
-        assertThat(count("lessons")).isEqualTo(2);
-        assertThat(count("exercises")).isEqualTo(12);
-        assertThat(count("steps")).isEqualTo(19);
+        assertThat(count("lessons")).isEqualTo(9);
+        assertThat(count("exercises")).isEqualTo(41);
+        assertThat(count("steps")).isEqualTo(60);
         assertThat(jdbc.sql("SELECT id FROM exercises ORDER BY id").query(Long.class).list()).isEqualTo(before);
+    }
+
+    @Test
+    void theModelAnswerOfEveryExerciseIsGradedCorrect() throws Exception {
+        ma.bac.complexes.grading.AnswerGrader grader = new ma.bac.complexes.grading.AnswerGrader();
+        List<String[]> rows = jdbc.sql("SELECT code, type, payload, answer FROM exercises")
+                .query((rs, n) -> new String[] {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)})
+                .list();
+        for (String[] r : rows) {
+            JsonNode payload = mapper.readTree(r[2]);
+            JsonNode answer = mapper.readTree(r[3]);
+            List<String> choices = null;
+            String text = null;
+            switch (r[1]) {
+                case "QCM" -> choices = mapper.convertValue(answer.get("correct"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {});
+                case "METHOD" -> choices = mapper.convertValue(answer.get("order"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {});
+                default -> {
+                    if (answer.has("value")) {
+                        text = Double.toString(answer.get("value").asDouble());
+                    } else {
+                        double im = answer.get("im").asDouble();
+                        text = answer.get("re").asDouble() + (im < 0 ? "-" : "+") + Math.abs(im) + "i";
+                    }
+                }
+            }
+            assertThat(grader.grade(r[1], payload, answer, choices, text).correct()).as(r[0] + " model answer").isTrue();
+        }
     }
 
     @Test

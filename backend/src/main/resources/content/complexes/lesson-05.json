@@ -1,0 +1,150 @@
+{
+  "code": "L05",
+  "part": 2,
+  "position": 6,
+  "title": "Forme trigonométrique et argument",
+  "kind": "LESSON",
+  "status": "draft",
+  "steps": [
+    {
+      "type": "EXPLANATION",
+      "title": "Module et argument",
+      "body": "Soit $z \\neq 0$ de module $r = |z|$. Un **argument** de $z$ est un réel $\\theta$ tel que $\\cos\\theta = \\dfrac{a}{r}$ et $\\sin\\theta = \\dfrac{b}{r}$ pour $z = a + bi$. Il est défini à $2\\pi$ près : $\\arg z \\equiv \\theta \\;[2\\pi]$.\n\nLa **forme trigonométrique** est $z = r(\\cos\\theta + i\\sin\\theta)$.",
+      "example": {
+        "statement": "Écrire $z = 1 + i$ sous forme trigonométrique.",
+        "solution": "$|z| = \\sqrt{2}$, $\\cos\\theta = \\dfrac{1}{\\sqrt{2}}$ et $\\sin\\theta = \\dfrac{1}{\\sqrt{2}}$ donc $\\theta = \\dfrac{\\pi}{4}$ et $z = \\sqrt{2}\\left(\\cos\\dfrac{\\pi}{4} + i\\sin\\dfrac{\\pi}{4}\\right)$."
+      }
+    },
+    {
+      "type": "EXPLANATION",
+      "title": "Propriétés de l’argument",
+      "body": "Pour $z, z'$ non nuls et $n$ entier :\n\n- $\\arg(zz') \\equiv \\arg z + \\arg z' \\;[2\\pi]$ ;\n- $\\arg\\dfrac{z}{z'} \\equiv \\arg z - \\arg z' \\;[2\\pi]$ ;\n- $\\arg\\overline{z} \\equiv -\\arg z \\;[2\\pi]$ ;\n- $\\arg(z^n) \\equiv n\\arg z \\;[2\\pi]$ ;\n- $\\arg(-z) \\equiv \\arg z + \\pi \\;[2\\pi]$.",
+      "example": {
+        "statement": "Déterminer un argument de $(1 + i)\\,i$.",
+        "solution": "$\\arg(1 + i) = \\dfrac{\\pi}{4}$ et $\\arg i = \\dfrac{\\pi}{2}$, donc $\\arg\\big((1+i)i\\big) \\equiv \\dfrac{3\\pi}{4} \\;[2\\pi]$. On vérifie : $(1+i)i = -1 + i$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L05-E1",
+        "type": "QCM",
+        "skill": "Argument",
+        "payload": {
+          "prompt": "Quel est un argument de $z = -1$ ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "$0$"
+            },
+            {
+              "id": "b",
+              "text": "$\\pi$"
+            },
+            {
+              "id": "c",
+              "text": "$\\dfrac{\\pi}{2}$"
+            },
+            {
+              "id": "d",
+              "text": "$-\\dfrac{\\pi}{2}$"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "b"
+          ],
+          "feedback": {
+            "a": "$0$ est un argument de $1$, pas de $-1$.",
+            "c": "$\\dfrac{\\pi}{2}$ est un argument de $i$.",
+            "d": "$-\\dfrac{\\pi}{2}$ est un argument de $-i$."
+          }
+        },
+        "solution": "$-1 = 1\\times(\\cos\\pi + i\\sin\\pi)$ donc $\\arg(-1) \\equiv \\pi \\;[2\\pi]$.",
+        "hint": "Placez $-1$ sur l’axe des abscisses."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L05-E2",
+        "type": "NUMERIC",
+        "skill": "Argument",
+        "payload": {
+          "prompt": "Donner un argument de $z = 1 + i$ en radians (par exemple pi/4, ou une valeur approchée à $10^{-2}$ près).",
+          "format": "real",
+          "placeholder": "ex. pi/4"
+        },
+        "answer": {
+          "value": 0.7853981633974483,
+          "tolerance": 0.01
+        },
+        "solution": "$\\cos\\theta = \\sin\\theta = \\dfrac{1}{\\sqrt{2}}$ donc $\\theta = \\dfrac{\\pi}{4}$.",
+        "hint": "Calculez $|z|$ puis $\\cos\\theta$ et $\\sin\\theta$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L05-E3",
+        "type": "NUMERIC",
+        "skill": "Argument",
+        "payload": {
+          "prompt": "Donner l’argument de $z = -1 + i$ appartenant à $]-\\pi ;\\, \\pi]$ (exact ou approché à $10^{-2}$ près).",
+          "format": "real",
+          "placeholder": "ex. 3pi/4"
+        },
+        "answer": {
+          "value": 2.356194490192345,
+          "tolerance": 0.01
+        },
+        "solution": "$|z| = \\sqrt{2}$, $\\cos\\theta = -\\dfrac{1}{\\sqrt{2}}$, $\\sin\\theta = \\dfrac{1}{\\sqrt{2}}$ donc $\\theta = \\dfrac{3\\pi}{4}$.",
+        "hint": "Le cosinus est négatif et le sinus positif."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L05-E4",
+        "type": "QCM",
+        "skill": "Forme trigonométrique",
+        "payload": {
+          "prompt": "Quelle est la forme trigonométrique de $z = 1 - i$ ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "$\\sqrt{2}\\left(\\cos\\left(-\\dfrac{\\pi}{4}\\right) + i\\sin\\left(-\\dfrac{\\pi}{4}\\right)\\right)$"
+            },
+            {
+              "id": "b",
+              "text": "$\\sqrt{2}\\left(\\cos\\dfrac{\\pi}{4} + i\\sin\\dfrac{\\pi}{4}\\right)$"
+            },
+            {
+              "id": "c",
+              "text": "$2\\left(\\cos\\left(-\\dfrac{\\pi}{4}\\right) + i\\sin\\left(-\\dfrac{\\pi}{4}\\right)\\right)$"
+            },
+            {
+              "id": "d",
+              "text": "$\\sqrt{2}\\left(\\cos\\dfrac{3\\pi}{4} + i\\sin\\dfrac{3\\pi}{4}\\right)$"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "a"
+          ],
+          "feedback": {
+            "b": "La partie imaginaire de $z$ est négative : le sinus de l’argument doit être négatif.",
+            "c": "Le module est $\\sqrt{1 + 1} = \\sqrt{2}$ et non $2$.",
+            "d": "La partie réelle de $z$ est positive, or $\\cos\\dfrac{3\\pi}{4} < 0$."
+          }
+        },
+        "solution": "$|z| = \\sqrt{2}$, $\\cos\\theta = \\dfrac{1}{\\sqrt{2}}$, $\\sin\\theta = -\\dfrac{1}{\\sqrt{2}}$ donc $\\theta = -\\dfrac{\\pi}{4}$.",
+        "hint": "Vérifiez le signe du cosinus et du sinus."
+      }
+    }
+  ]
+}

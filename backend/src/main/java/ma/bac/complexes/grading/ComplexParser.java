@@ -37,7 +37,8 @@ public final class ComplexParser {
                 .replace('−', '-').replace('–', '-')
                 .replace('×', '*').replace('·', '*')
                 .replace(',', '.')
-                .replace("√", "sqrt");
+                .replace("√", "sqrt")
+                .replace("π", "pi");
         ComplexParser p = new ComplexParser(normalized);
         Complex value = p.expr();
         if (p.peek() != '\0') {
@@ -95,7 +96,7 @@ public final class ComplexParser {
     }
 
     private static boolean startsAtom(char c) {
-        return Character.isDigit(c) || c == '.' || c == 'i' || c == 's' || c == '(';
+        return Character.isDigit(c) || c == '.' || c == 'i' || c == 's' || c == 'p' || c == '(';
     }
 
     private Complex atom() {
@@ -118,6 +119,10 @@ public final class ComplexParser {
                 iInGroup = true;
             }
             return Complex.I;
+        }
+        if (c == 'p' && s.startsWith("pi", pos)) {
+            pos += 2;
+            return new Complex(Math.PI, 0);
         }
         if (c == 's' && s.startsWith("sqrt", pos)) {
             pos += 4;

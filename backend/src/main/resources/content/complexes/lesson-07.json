@@ -1,0 +1,152 @@
+{
+  "code": "L07",
+  "part": 2,
+  "position": 8,
+  "title": "Applications géométriques",
+  "kind": "LESSON",
+  "status": "draft",
+  "steps": [
+    {
+      "type": "EXPLANATION",
+      "title": "Transformations du plan",
+      "body": "Avec $z$ l’affixe de $M$ et $z'$ celle de son image $M'$ :\n\n- **translation** de vecteur d’affixe $b$ : $z' = z + b$ ;\n- **homothétie** de centre $\\Omega(\\omega)$ et de rapport $k$ : $z' - \\omega = k\\,(z - \\omega)$ ;\n- **rotation** de centre $\\Omega(\\omega)$ et d’angle $\\theta$ : $z' - \\omega = e^{i\\theta}(z - \\omega)$.",
+      "example": {
+        "statement": "Déterminer l’image de $M(2 + i)$ par la rotation de centre $O$ et d’angle $\\dfrac{\\pi}{2}$.",
+        "solution": "$z' = e^{i\\pi/2}\\,z = i(2 + i) = 2i + i^2 = -1 + 2i$."
+      }
+    },
+    {
+      "type": "EXPLANATION",
+      "title": "Alignement et orthogonalité",
+      "body": "Pour trois points distincts $A, B, C$, on étudie $Q = \\dfrac{z_C - z_A}{z_B - z_A}$ :\n\n- $|Q| = \\dfrac{AC}{AB}$ et $\\arg Q \\equiv (\\overrightarrow{AB}, \\overrightarrow{AC}) \\;[2\\pi]$ ;\n- $Q$ réel $\\iff$ $A, B, C$ alignés ;\n- $Q$ imaginaire pur $\\iff$ $(AB) \\perp (AC)$.",
+      "example": {
+        "statement": "Soit $A(0)$, $B(1 + i)$, $C(-1 + i)$. Que dire du triangle $ABC$ ?",
+        "solution": "$Q = \\dfrac{-1 + i}{1 + i} = \\dfrac{(-1 + i)(1 - i)}{2} = \\dfrac{2i}{2} = i$. $Q$ est imaginaire pur de module $1$ : $ABC$ est rectangle et isocèle en $A$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L07-E1",
+        "type": "QCM",
+        "skill": "Transformations",
+        "payload": {
+          "prompt": "Quelle est l’écriture complexe de la translation de vecteur d’affixe $2 - i$ ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "$z' = z + 2 - i$"
+            },
+            {
+              "id": "b",
+              "text": "$z' = z - 2 + i$"
+            },
+            {
+              "id": "c",
+              "text": "$z' = (2 - i)\\,z$"
+            },
+            {
+              "id": "d",
+              "text": "$z' = z + 2 + i$"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "a"
+          ],
+          "feedback": {
+            "b": "Ce serait la translation de vecteur opposé.",
+            "c": "Un produit par un complexe donne une similitude, pas une translation.",
+            "d": "Vous avez utilisé le conjugué de l’affixe du vecteur."
+          }
+        },
+        "solution": "La translation de vecteur d’affixe $b$ s’écrit $z' = z + b$.",
+        "hint": "On additionne l’affixe du vecteur."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L07-E2",
+        "type": "NUMERIC",
+        "skill": "Rotation",
+        "payload": {
+          "prompt": "Donner l’affixe de l’image de $M(1 + i)$ par la rotation de centre $O$ et d’angle $\\dfrac{\\pi}{2}$.",
+          "format": "complex",
+          "placeholder": "ex. -1 + i"
+        },
+        "answer": {
+          "re": -1,
+          "im": 1,
+          "tolerance": 0.001
+        },
+        "solution": "$z' = i(1 + i) = i + i^2 = -1 + i$.",
+        "hint": "$z' = e^{i\\pi/2}\\,z = i\\,z$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L07-E3",
+        "type": "NUMERIC",
+        "skill": "Homothétie",
+        "payload": {
+          "prompt": "Donner l’affixe de l’image de $M(2 + i)$ par l’homothétie de centre $\\Omega(1)$ et de rapport $3$.",
+          "format": "complex",
+          "placeholder": "ex. 4 + 3i"
+        },
+        "answer": {
+          "re": 4,
+          "im": 3,
+          "tolerance": 0.001
+        },
+        "solution": "$z' - 1 = 3(2 + i - 1) = 3 + 3i$ donc $z' = 4 + 3i$.",
+        "hint": "Utilisez $z' - \\omega = k(z - \\omega)$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L07-E4",
+        "type": "QCM",
+        "skill": "Alignement",
+        "payload": {
+          "prompt": "Pour trois points distincts $A, B, C$, on trouve $\\dfrac{z_C - z_A}{z_B - z_A} = 2$. Que peut-on conclure ?",
+          "multiple": false,
+          "options": [
+            {
+              "id": "a",
+              "text": "$A$, $B$ et $C$ sont alignés"
+            },
+            {
+              "id": "b",
+              "text": "Les droites $(AB)$ et $(AC)$ sont perpendiculaires"
+            },
+            {
+              "id": "c",
+              "text": "Le triangle $ABC$ est équilatéral"
+            },
+            {
+              "id": "d",
+              "text": "$C$ est l’image de $B$ par la rotation de centre $A$ et d’angle $\\dfrac{\\pi}{2}$"
+            }
+          ]
+        },
+        "answer": {
+          "correct": [
+            "a"
+          ],
+          "feedback": {
+            "b": "La perpendicularité correspond à un quotient imaginaire pur ; ici il est réel.",
+            "c": "Un triangle équilatéral donnerait un quotient de module $1$ et d’argument $\\pm\\dfrac{\\pi}{3}$.",
+            "d": "Cela donnerait un quotient égal à $i$."
+          }
+        },
+        "solution": "Le quotient $2$ est réel : $A$, $B$ et $C$ sont alignés (et $AC = 2\\,AB$).",
+        "hint": "Un quotient réel signifie que l’argument vaut $0$ ou $\\pi$."
+      }
+    }
+  ]
+}
