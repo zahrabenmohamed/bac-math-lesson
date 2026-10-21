@@ -18,6 +18,11 @@ function Inline({ text }: { text: string }) {
   return <>{parts}</>
 }
 
+/** A single KaTeX formula (inline or display). */
+export function Tex({ tex, display = false, className }: { tex: string; display?: boolean; className?: string }) {
+  return <span className={className} dangerouslySetInnerHTML={{ __html: math(tex, display) }} />
+}
+
 /** Inline-only variant (a single span): valid inside <label>, <legend>, buttons. */
 export function RichInline({ text, id, className }: { text: string; id?: string; className?: string }) {
   return <span id={id} className={className}><Inline text={text} /></span>

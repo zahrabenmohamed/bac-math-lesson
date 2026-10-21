@@ -13,7 +13,11 @@
       "example": {
         "statement": "Résoudre dans $\\mathbb{C}$ : $z^2 + 2z + 5 = 0$.",
         "solution": "$\\Delta = 4 - 20 = -16 < 0$ et $\\sqrt{-\\Delta} = 4$. Les solutions sont $z = \\dfrac{-2 \\pm 4i}{2} = -1 \\pm 2i$."
-      }
+      },
+      "widget": {
+        "name": "quadratic"
+      },
+      "keypoint": "Si $\\Delta < 0$ : deux solutions complexes conjuguées $\\dfrac{-b \\pm i\\sqrt{-\\Delta}}{2a}$, symétriques par rapport à l’axe des abscisses."
     },
     {
       "type": "EXPLANATION",
@@ -184,6 +188,25 @@
         },
         "solution": "$\\Delta = 4 - 40 = -36$, $\\sqrt{-\\Delta} = 6$, donc $z = \\dfrac{-2 \\pm 6i}{2} = -1 \\pm 3i$.",
         "hint": "Pour $\\Delta < 0$, les solutions sont $\\dfrac{-b \\pm i\\sqrt{-\\Delta}}{2a}$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L04-E5",
+        "type": "PLOT",
+        "skill": "Second degré",
+        "payload": {
+          "prompt": "Résoudre $z^2 + 2z + 5 = 0$ puis placer la solution dont la partie imaginaire est positive.",
+          "range": 5
+        },
+        "answer": {
+          "re": -1,
+          "im": 2,
+          "tolerance": 0.25
+        },
+        "solution": "$\\Delta = 4 - 20 = -16$ donc $z = \\dfrac{-2 \\pm 4i}{2} = -1 \\pm 2i$. La solution à partie imaginaire positive est $-1 + 2i$ : $M(-1, 2)$.",
+        "hint": "Calculez $\\Delta$, puis $z = \\dfrac{-b \\pm i\\sqrt{-\\Delta}}{2a}$."
       }
     }
   ]

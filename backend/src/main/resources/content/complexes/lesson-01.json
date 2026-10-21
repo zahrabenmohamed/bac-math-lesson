@@ -13,7 +13,8 @@
       "example": {
         "statement": "Résoudre dans $\\mathbb{C}$ l’équation $x^2 = -9$.",
         "solution": "On écrit $-9 = 9\\times(-1) = (3i)^2$. L’équation devient $x^2 = (3i)^2$, donc $x = 3i$ ou $x = -3i$."
-      }
+      },
+      "keypoint": "$i^2 = -1$ est la seule règle nouvelle : tout le reste se calcule comme dans $\\mathbb{R}$."
     },
     {
       "type": "EXPLANATION",
@@ -22,7 +23,11 @@
       "example": {
         "statement": "Donner les parties réelle et imaginaire de $z = 3 - 5i$.",
         "solution": "$z = 3 + (-5)\\,i$ donc $\\operatorname{Re}(z) = 3$ et $\\operatorname{Im}(z) = -5$."
-      }
+      },
+      "widget": {
+        "name": "argand"
+      },
+      "keypoint": "Dans $z = a + bi$, $a$ est la partie réelle et $b$ la partie imaginaire (un réel, sans le $i$). Le nombre $z$ correspond au point $(a, b)$ du plan : vous le retrouverez à la leçon 3."
     },
     {
       "type": "EXERCISE",
@@ -34,14 +39,28 @@
           "prompt": "Quelle est la partie imaginaire de $z = 4 - 7i$ ?",
           "multiple": false,
           "options": [
-            { "id": "a", "text": "$7$" },
-            { "id": "b", "text": "$-7$" },
-            { "id": "c", "text": "$-7i$" },
-            { "id": "d", "text": "$4$" }
+            {
+              "id": "a",
+              "text": "$7$"
+            },
+            {
+              "id": "b",
+              "text": "$-7$"
+            },
+            {
+              "id": "c",
+              "text": "$-7i$"
+            },
+            {
+              "id": "d",
+              "text": "$4$"
+            }
           ]
         },
         "answer": {
-          "correct": ["b"],
+          "correct": [
+            "b"
+          ],
           "feedback": {
             "a": "Le signe est oublié : $z = 4 + (-7)\\,i$, la partie imaginaire est négative.",
             "c": "La partie imaginaire est le réel $b$ dans $a + bi$ : on ne garde pas le $i$.",
@@ -63,7 +82,11 @@
           "format": "complex",
           "placeholder": "ex. 3 - 2i"
         },
-        "answer": { "re": 3, "im": -2, "tolerance": 0.001 },
+        "answer": {
+          "re": 3,
+          "im": -2,
+          "tolerance": 0.001
+        },
         "solution": "On additionne les parties réelles puis les parties imaginaires : $(2+1) + (3-5)\\,i = 3 - 2i$.",
         "hint": "Additionnez séparément les parties réelles et les parties imaginaires."
       }
@@ -75,7 +98,8 @@
       "example": {
         "statement": "Calculer $(2 + 3i)(1 - i)$.",
         "solution": "$(2+3i)(1-i) = 2 - 2i + 3i - 3i^2 = 2 + i + 3 = 5 + i$."
-      }
+      },
+      "keypoint": "Pour multiplier : on développe, puis on remplace $i^2$ par $-1$."
     },
     {
       "type": "EXERCISE",
@@ -88,7 +112,11 @@
           "format": "complex",
           "placeholder": "ex. 5 + 5i"
         },
-        "answer": { "re": 5, "im": 5, "tolerance": 0.001 },
+        "answer": {
+          "re": 5,
+          "im": 5,
+          "tolerance": 0.001
+        },
         "solution": "$(1+2i)(3-i) = 3 - i + 6i - 2i^2 = 3 + 5i + 2 = 5 + 5i$.",
         "hint": "Développez, puis remplacez $i^2$ par $-1$."
       }
@@ -100,7 +128,11 @@
       "example": {
         "statement": "Calculer $i^{2027}$.",
         "solution": "$2027 = 4 \\times 506 + 3$, donc $i^{2027} = (i^4)^{506} \\times i^3 = i^3 = -i$."
-      }
+      },
+      "widget": {
+        "name": "i-powers"
+      },
+      "keypoint": "$i^n$ ne prend que quatre valeurs : $1,\\; i,\\; -1,\\; -i$. On garde le reste de $n$ dans la division par $4$."
     },
     {
       "type": "EXERCISE",
@@ -112,14 +144,28 @@
           "prompt": "Quelle est la valeur de $i^{2026}$ ?",
           "multiple": false,
           "options": [
-            { "id": "a", "text": "$1$" },
-            { "id": "b", "text": "$-1$" },
-            { "id": "c", "text": "$i$" },
-            { "id": "d", "text": "$-i$" }
+            {
+              "id": "a",
+              "text": "$1$"
+            },
+            {
+              "id": "b",
+              "text": "$-1$"
+            },
+            {
+              "id": "c",
+              "text": "$i$"
+            },
+            {
+              "id": "d",
+              "text": "$-i$"
+            }
           ]
         },
         "answer": {
-          "correct": ["b"],
+          "correct": [
+            "b"
+          ],
           "feedback": {
             "a": "Vérifiez le reste de la division par 4 : $2026 = 4 \\times 506 + 2$, le reste est $2$ et non $0$.",
             "c": "Le reste de la division de $2026$ par $4$ est $2$, pas $1$.",
@@ -142,31 +188,62 @@
             {
               "question": "Première étape",
               "options": [
-                { "id": "s1a", "text": "Développer : $2^2 + 2\\times 2\\times i + i^2$" },
-                { "id": "s1b", "text": "Écrire $(2+i)^2 = 2^2 + i^2$" },
-                { "id": "s1c", "text": "Calculer le module de $2 + i$" }
+                {
+                  "id": "s1a",
+                  "text": "Développer : $2^2 + 2\\times 2\\times i + i^2$"
+                },
+                {
+                  "id": "s1b",
+                  "text": "Écrire $(2+i)^2 = 2^2 + i^2$"
+                },
+                {
+                  "id": "s1c",
+                  "text": "Calculer le module de $2 + i$"
+                }
               ]
             },
             {
               "question": "Que faire de $i^2$ ?",
               "options": [
-                { "id": "s2a", "text": "Le remplacer par $1$" },
-                { "id": "s2b", "text": "Le remplacer par $-1$" },
-                { "id": "s2c", "text": "Le laisser tel quel" }
+                {
+                  "id": "s2a",
+                  "text": "Le remplacer par $1$"
+                },
+                {
+                  "id": "s2b",
+                  "text": "Le remplacer par $-1$"
+                },
+                {
+                  "id": "s2c",
+                  "text": "Le laisser tel quel"
+                }
               ]
             },
             {
               "question": "Conclusion",
               "options": [
-                { "id": "s3a", "text": "$3 + 4i$" },
-                { "id": "s3b", "text": "$5 + 4i$" },
-                { "id": "s3c", "text": "$3 + 2i$" }
+                {
+                  "id": "s3a",
+                  "text": "$3 + 4i$"
+                },
+                {
+                  "id": "s3b",
+                  "text": "$5 + 4i$"
+                },
+                {
+                  "id": "s3c",
+                  "text": "$3 + 2i$"
+                }
               ]
             }
           ]
         },
         "answer": {
-          "order": ["s1a", "s2b", "s3a"],
+          "order": [
+            "s1a",
+            "s2b",
+            "s3a"
+          ],
           "feedback": {
             "s1b": "Erreur classique : $(a+b)^2 \\neq a^2 + b^2$, il manque le double produit $2ab$.",
             "s1c": "Le module n’est pas utile pour obtenir la forme algébrique.",
@@ -190,14 +267,30 @@
           "prompt": "Quelles égalités sont vraies ? (plusieurs réponses possibles)",
           "multiple": true,
           "options": [
-            { "id": "a", "text": "$i^2 = -1$" },
-            { "id": "b", "text": "$i^3 = -i$" },
-            { "id": "c", "text": "$i^4 = i$" },
-            { "id": "d", "text": "$(1 + i)^2 = 2i$" }
+            {
+              "id": "a",
+              "text": "$i^2 = -1$"
+            },
+            {
+              "id": "b",
+              "text": "$i^3 = -i$"
+            },
+            {
+              "id": "c",
+              "text": "$i^4 = i$"
+            },
+            {
+              "id": "d",
+              "text": "$(1 + i)^2 = 2i$"
+            }
           ]
         },
         "answer": {
-          "correct": ["a", "b", "d"],
+          "correct": [
+            "a",
+            "b",
+            "d"
+          ],
           "feedback": {
             "a": "$i^2 = -1$ est la définition de $i$.",
             "b": "$i^3 = i^2 \\times i = -i$.",

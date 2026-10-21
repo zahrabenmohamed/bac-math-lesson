@@ -13,7 +13,12 @@
       "example": {
         "statement": "Déterminer l’image de $M(2 + i)$ par la rotation de centre $O$ et d’angle $\\dfrac{\\pi}{2}$.",
         "solution": "$z' = e^{i\\pi/2}\\,z = i(2 + i) = 2i + i^2 = -1 + 2i$."
-      }
+      },
+      "widget": {
+        "name": "transform",
+        "mode": "rotation"
+      },
+      "keypoint": "Translation : $z' = z + b$. Homothétie : $z' - \\omega = k(z - \\omega)$. Rotation : $z' - \\omega = e^{i\\theta}(z - \\omega)$."
     },
     {
       "type": "EXPLANATION",
@@ -22,7 +27,11 @@
       "example": {
         "statement": "Soit $A(0)$, $B(1 + i)$, $C(-1 + i)$. Que dire du triangle $ABC$ ?",
         "solution": "$Q = \\dfrac{-1 + i}{1 + i} = \\dfrac{(-1 + i)(1 - i)}{2} = \\dfrac{2i}{2} = i$. $Q$ est imaginaire pur de module $1$ : $ABC$ est rectangle et isocèle en $A$."
-      }
+      },
+      "widget": {
+        "name": "alignment"
+      },
+      "keypoint": "$Q = \\dfrac{z_C - z_A}{z_B - z_A}$ : $Q$ réel $\\Rightarrow$ points alignés ; $Q$ imaginaire pur $\\Rightarrow$ $(AB) \\perp (AC)$."
     },
     {
       "type": "EXERCISE",
@@ -146,6 +155,25 @@
         },
         "solution": "Le quotient $2$ est réel : $A$, $B$ et $C$ sont alignés (et $AC = 2\\,AB$).",
         "hint": "Un quotient réel signifie que l’argument vaut $0$ ou $\\pi$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L07-E5",
+        "type": "PLOT",
+        "skill": "Rotation",
+        "payload": {
+          "prompt": "Placez l’image du point $M(1 + 2i)$ par la rotation de centre $O$ et d’angle $-\\dfrac{\\pi}{2}$.",
+          "range": 5
+        },
+        "answer": {
+          "re": 2,
+          "im": -1,
+          "tolerance": 0.25
+        },
+        "solution": "$z' = e^{-i\\pi/2}\\,z = -i(1 + 2i) = -i + 2 = 2 - i$ : $M'(2, -1)$.",
+        "hint": "$e^{-i\\pi/2} = -i$."
       }
     }
   ]

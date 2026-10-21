@@ -82,6 +82,20 @@ class AnswerGraderTest {
     }
 
     @Test
+    void plotChecksThePlacedPointAndNamesWhatWasPlacedWhenWrong() throws Exception {
+        JsonNode answer = json("{\"re\":3,\"im\":-2,\"tolerance\":0.25}");
+        assertThat(grader.grade("PLOT", null, answer, null, null, new Point(3, -2)).correct()).isTrue();
+        Grade swapped = grader.grade("PLOT", null, answer, null, null, new Point(-2, 3));
+        assertThat(swapped.correct()).isFalse();
+        assertThat(swapped.explanation()).contains("-2 + 3i").contains("partie réelle");
+        assertThat(grader.grade("PLOT", null, answer, null, null, new Point(3, -1.5)).correct()).isFalse();
+        assertThat(grader.grade("PLOT", null, answer, null, null, new Point(0, 2)).explanation()).contains("2i");
+        assertThat(grader.grade("PLOT", null, answer, null, null, new Point(1.5, 0)).explanation()).contains("1.5");
+        assertThatThrownBy(() -> grader.grade("PLOT", null, answer, null, null, null))
+                .isInstanceOf(UnreadableAnswerException.class);
+    }
+
+    @Test
     void methodGradesEachStage() throws Exception {
         JsonNode payload = json("{\"stages\":[{},{},{}]}");
         JsonNode answer = json("{\"order\":[\"s1a\",\"s2b\",\"s3a\"],\"feedback\":{\"s2a\":\"i² vaut -1\"}}");

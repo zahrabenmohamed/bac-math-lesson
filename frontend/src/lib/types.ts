@@ -1,3 +1,9 @@
+/** Interactive activity attached to an explanation step: { name: 'argand', ...config }. */
+export interface WidgetSpec {
+  name: string
+  [config: string]: unknown
+}
+
 export type LessonStatus = 'locked' | 'unlocked' | 'completed'
 
 export interface LessonSummary {
@@ -31,9 +37,19 @@ export type Exercise =
   | (ExerciseBase & { type: 'QCM'; multiple: boolean; options: Option[] })
   | (ExerciseBase & { type: 'NUMERIC'; format: 'complex' | 'real'; placeholder?: string })
   | (ExerciseBase & { type: 'METHOD'; stages: { question: string; options: Option[] }[] })
+  | (ExerciseBase & { type: 'PLOT'; range: number })
 
 export type Step =
-  | { type: 'EXPLANATION'; title: string; body: string; example?: { statement: string; solution: string } }
+  | {
+      type: 'EXPLANATION'
+      title: string
+      body: string
+      example?: { statement: string; solution: string }
+      /** Short takeaway shown in a highlighted box. */
+      keypoint?: string
+      /** Interactive activity (see widgets/WidgetHost). */
+      widget?: WidgetSpec
+    }
   | { type: 'EXERCISE'; exercise: Exercise }
 
 export interface Lesson {
@@ -43,7 +59,7 @@ export interface Lesson {
   steps: Step[]
 }
 
-export type AnswerPayload = { choices: string[] } | { text: string }
+export type AnswerPayload = { choices: string[] } | { text: string } | { point: { re: number; im: number } }
 
 export interface AnswerResult {
   correct: boolean

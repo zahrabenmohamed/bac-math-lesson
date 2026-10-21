@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -166,6 +167,54 @@ class ApiFlowTest {
         answer("L01-E3", "{\"text\":\"5+5i\"}").andExpect(jsonPath("$.correct").value(true))
                 .andExpect(jsonPath("$.xpAwarded").value(5));
         answer("L01-E3", "{\"text\":\"5+5i\"}").andExpect(jsonPath("$.xpAwarded").value(10));
+    }
+
+    private record Model(String lesson, String code, String type, String answer) {}
+
+    private String modelAnswerJson(Model m) throws Exception {
+        JsonNode a = mapper.readTree(m.answer());
+        return switch (m.type()) {
+            case "QCM" -> mapper.writeValueAsString(java.util.Map.of("choices", a.get("correct")));
+            case "METHOD" -> mapper.writeValueAsString(java.util.Map.of("choices", a.get("order")));
+            case "PLOT" -> "{\"point\":{\"re\":" + a.get("re").asDouble() + ",\"im\":" + a.get("im").asDouble() + "}}";
+            default -> {
+                String text = a.has("value") ? Double.toString(a.get("value").asDouble())
+                        : a.get("re").asDouble() + (a.get("im").asDouble() < 0 ? "-" : "+") + Math.abs(a.get("im").asDouble()) + "i";
+                yield mapper.writeValueAsString(java.util.Map.of("text", text));
+            }
+        };
+    }
+
+    @Test
+    void aStudentCanPlayTheWholeCourseInOrderAndBossesGiveBonusXp() throws Exception {
+        List<Model> models = jdbc.sql("""
+                        SELECT l.code AS lesson, e.code, e.type, e.answer FROM lessons l
+                        JOIN steps s ON s.lesson_id = l.id JOIN exercises e ON e.id = s.exercise_id
+                        ORDER BY l.part, l.position, s.position""")
+                .query((rs, n) -> new Model(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4))).list();
+        assertThat(models).hasSize(47);
+
+        String current = null;
+        for (Model m : models) {
+            if (current != null && !current.equals(m.lesson())) {
+                mvc.perform(post("/lessons/" + current + "/complete").header("Authorization", "Bearer " + token))
+                        .andExpect(status().isNoContent());
+            }
+            current = m.lesson();
+            if ("PLOT".equals(m.type())) {
+                answer(m.code(), "{}").andExpect(status().isBadRequest());
+                answer(m.code(), "{\"point\":{\"re\":-4.5,\"im\":4.5}}").andExpect(jsonPath("$.correct").value(false))
+                        .andExpect(jsonPath("$.explanation").value(org.hamcrest.Matchers.containsString("Vous avez placé")));
+            }
+            answer(m.code(), modelAnswerJson(m)).andExpect(status().isOk()).andExpect(jsonPath("$.correct").value(true));
+        }
+        mvc.perform(post("/lessons/" + current + "/complete").header("Authorization", "Bearer " + token))
+                .andExpect(status().isNoContent());
+
+        // 47 exercises x 10 XP + 25 bonus on the 8 final-exercise questions
+        getJson("/me/progress").andExpect(jsonPath("$.xp").value(670)).andExpect(jsonPath("$.level").value(4));
+        getJson("/chapters").andExpect(jsonPath("$[5].lessonsDone").value(9)).andExpect(jsonPath("$[5].nextLessonId").doesNotExist());
+        getJson("/chapters/complexes").andExpect(jsonPath("$.lessons[8].status").value("completed"));
     }
 
     @Test

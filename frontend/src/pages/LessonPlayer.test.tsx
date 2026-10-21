@@ -120,6 +120,33 @@ describe('LessonPlayer', () => {
     await waitFor(() => expect(api.answer).toHaveBeenCalledWith('T1-E1', { choices: ['a'] }, true))
   })
 
+  it('shows the interactive widget and the key point of an explanation step', async () => {
+    api.getLesson.mockResolvedValue({
+      id: 'T1', title: 'Leçon', steps: [
+        { type: 'EXPLANATION', title: 'Plan', body: 'Texte.', keypoint: 'Retenez **ceci**.', widget: { name: 'argand' } },
+      ],
+    })
+    renderPlayer()
+    expect(await screen.findByRole('region', { name: /Activité interactive/ })).toBeInTheDocument()
+    expect(screen.getByRole('complementary', { name: 'À retenir' })).toHaveTextContent('Retenez ceci.')
+  })
+
+  it('plays a PLOT exercise: sends the placed point to the server', async () => {
+    api.getLesson.mockResolvedValue({
+      id: 'T1', title: 'Leçon', steps: [
+        { type: 'EXERCISE', exercise: { id: 'T1-P', type: 'PLOT', skill: 'Plan', prompt: 'Placez M.', range: 5 } },
+      ],
+    })
+    api.answer.mockResolvedValue({ correct: true, explanation: '', solution: 's', xpAwarded: 10, mastered: false })
+    renderPlayer()
+    const plane = await screen.findByRole('group', { name: /placez le point/i })
+    plane.focus()
+    await userEvent.keyboard('{ArrowRight}{ArrowRight}{ArrowUp}')
+    await userEvent.click(await screen.findByRole('button', { name: 'Vérifier' }))
+    await waitFor(() => expect(api.answer).toHaveBeenCalledWith('T1-P', { point: { re: 1, im: 0.5 } }, false))
+    expect(await screen.findByText('Correct')).toBeInTheDocument()
+  })
+
   it('shows an empty state for a review session with nothing to review', async () => {
     api.getLesson.mockResolvedValue({ id: 'review', title: 'Révision', steps: [] })
     renderPlayer()

@@ -102,6 +102,20 @@ function numeric(
   }
 }
 
+function plot(
+  id: string, lessonId: string, skill: string, prompt: string, re: number, im: number, solution: string, hint: string,
+): MockExercise {
+  return {
+    lessonId, hint, solution,
+    exercise: { id, type: 'PLOT', skill, prompt, range: 5 },
+    check: (p) => {
+      const pt = 'point' in p ? p.point : null
+      const ok = !!pt && near(pt.re, re, 0.25) && near(pt.im, im, 0.25)
+      return { correct: ok, explanation: ok ? '' : 'Rappel : l’abscisse est la partie réelle et l’ordonnée la partie imaginaire.' }
+    },
+  }
+}
+
 const exercises: MockExercise[] = [
   qcm('L01-E1', 'L01', 'Forme algébrique', 'Quelle est la partie imaginaire de $z = 4 - 7i$ ?',
     ['$7$', '$-7$', '$-7i$', '$4$'], ['b'],
@@ -177,6 +191,9 @@ const exercises: MockExercise[] = [
     { re: 0.5, im: -0.5 },
     '$\\dfrac{1}{1+i} = \\dfrac{1-i}{(1+i)(1-i)} = \\dfrac{1-i}{2} = \\dfrac12 - \\dfrac12 i$.',
     'Multipliez numérateur et dénominateur par le conjugué du dénominateur.', 'ex. 1/2 - 1/2 i'),
+  plot('L02-E4', 'L02', 'Conjugué', 'Soit $z = 2 + 3i$. Placez le point d’affixe $\\overline{z}$.', 2, -3,
+    '$\\overline{z} = 2 - 3i$ : symétrique de $(2, 3)$ par rapport à l’axe des abscisses, soit $(2, -3)$.',
+    'Le conjugué change le signe de la partie imaginaire.'),
 ]
 
 export const mockExercises = new Map(exercises.map((e) => [e.exercise.id, e]))
@@ -196,6 +213,8 @@ export const mockLessons: MockLesson[] = [
         solution: 'On écrit $-9 = 9\\times(-1) = (3i)^2$, donc $x = 3i$ ou $x = -3i$.' } },
     { type: 'EXPLANATION', title: 'Forme algébrique',
       body: 'Tout nombre complexe $z$ s’écrit de façon unique $z = a + bi$ avec $a$ et $b$ réels.\n\n- $a$ est la **partie réelle** : $\\operatorname{Re}(z) = a$ ;\n- $b$ est la **partie imaginaire** : $\\operatorname{Im}(z) = b$ (un réel, sans le $i$).\n\nDeux nombres complexes sont égaux si et seulement si ils ont la même partie réelle et la même partie imaginaire.',
+      widget: { name: 'argand' },
+      keypoint: 'Dans $z = a + bi$, $a$ est la partie réelle et $b$ la partie imaginaire (un réel, sans le $i$).',
       example: { statement: 'Donner les parties réelle et imaginaire de $z = 3 - 5i$.',
         solution: '$z = 3 + (-5)\\,i$ donc $\\operatorname{Re}(z) = 3$ et $\\operatorname{Im}(z) = -5$.' } },
     ex('L01-E1'), ex('L01-E2'),
@@ -208,9 +227,11 @@ export const mockLessons: MockLesson[] = [
   { id: 'L02', part: 1, kind: 'LESSON', title: 'Conjugué et module d’un nombre complexe', steps: [
     { type: 'EXPLANATION', title: 'Conjugué et module',
       body: 'Le **conjugué** de $z = a + bi$ est $\\overline{z} = a - bi$. On a $z\\,\\overline{z} = a^2 + b^2$.\n\nLe **module** de $z$ est le réel positif $|z| = \\sqrt{a^2 + b^2}$, donc $|z|^2 = z\\,\\overline{z}$.\n\nPour écrire un quotient sous forme algébrique, on multiplie le numérateur et le dénominateur par le conjugué du dénominateur.',
+      widget: { name: 'argand', conjugate: true, modulus: true },
+      keypoint: 'Le conjugué est le symétrique de $z$ par rapport à l’axe des abscisses ; $|z|$ est la distance $OM$.',
       example: { statement: 'Pour $z = 3 + 4i$, calculer $\\overline{z}$ et $|z|$.',
         solution: '$\\overline{z} = 3 - 4i$ et $|z| = \\sqrt{9 + 16} = 5$.' } },
-    ex('L02-E1'), ex('L02-E2'), ex('L02-E3'),
+    ex('L02-E1'), ex('L02-E2'), ex('L02-E3'), ex('L02-E4'),
   ] },
   { id: 'L03', part: 1, kind: 'LESSON', title: 'Plan complexe : affixe d’un point et d’un vecteur', steps: soon('L03') },
   { id: 'L04', part: 1, kind: 'LESSON', title: 'Équations du second degré dans ℂ', steps: soon('L04') },

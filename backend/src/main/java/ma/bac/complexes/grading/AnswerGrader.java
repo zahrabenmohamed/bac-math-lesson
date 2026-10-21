@@ -16,10 +16,15 @@ public class AnswerGrader {
     private static final double DEFAULT_TOLERANCE = 0.001;
 
     public Grade grade(String type, JsonNode payload, JsonNode answer, List<String> choices, String text) {
+        return grade(type, payload, answer, choices, text, null);
+    }
+
+    public Grade grade(String type, JsonNode payload, JsonNode answer, List<String> choices, String text, Point point) {
         return switch (type) {
             case "QCM" -> gradeQcm(answer, choices);
             case "METHOD" -> gradeMethod(payload, answer, choices);
             case "NUMERIC" -> gradeNumeric(payload, answer, text);
+            case "PLOT" -> gradePlot(answer, point);
             default -> throw new IllegalStateException("Unknown exercise type " + type);
         };
     }
@@ -75,6 +80,32 @@ public class AnswerGrader {
                 ? Math.abs(re - answer.get("re").asDouble()) <= tolerance && Math.abs(im - answer.get("im").asDouble()) <= tolerance
                 : Math.abs(re - answer.get("value").asDouble()) <= tolerance;
         return new Grade(ok, ok ? "" : "Le résultat n’est pas équivalent à la réponse attendue. Vérifiez séparément la partie réelle et la partie imaginaire.", null);
+    }
+
+    private Grade gradePlot(JsonNode answer, Point point) {
+        if (point == null) {
+            throw new UnreadableAnswerException("Placez un point sur le plan");
+        }
+        double tolerance = answer.path("tolerance").asDouble(0.25);
+        boolean ok = Math.abs(point.re() - answer.get("re").asDouble()) <= tolerance
+                && Math.abs(point.im() - answer.get("im").asDouble()) <= tolerance;
+        return new Grade(ok, ok ? "" : "Vous avez placé le point d’affixe $" + affix(point) + "$. Rappel : l’abscisse est la partie réelle et l’ordonnée la partie imaginaire.", null);
+    }
+
+    private static String num(double x) {
+        return x == Math.rint(x) ? Long.toString((long) x) : Double.toString(x);
+    }
+
+    /** a + bi, omitting zero parts. */
+    private static String affix(Point p) {
+        if (p.im() == 0) {
+            return num(p.re());
+        }
+        String imag = Math.abs(p.im()) == 1 ? "i" : num(Math.abs(p.im())) + "i";
+        if (p.re() == 0) {
+            return (p.im() < 0 ? "-" : "") + imag;
+        }
+        return num(p.re()) + (p.im() < 0 ? " - " : " + ") + imag;
     }
 
     private String feedback(JsonNode answer, Set<String> ids) {

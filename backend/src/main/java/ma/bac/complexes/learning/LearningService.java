@@ -211,7 +211,7 @@ public class LearningService {
 
         Grade grade;
         try {
-            grade = grader.grade(ex.type(), json(ex.payload()), json(ex.answer()), req.choices(), req.text());
+            grade = grader.grade(ex.type(), json(ex.payload()), json(ex.answer()), req.choices(), req.text(), req.point());
         } catch (UnreadableAnswerException e) {
             throw new ApiException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -224,7 +224,9 @@ public class LearningService {
                 .param("u", userId).param("e", ex.id()).query(Integer.class).single() > 0;
 
         int xp = Rules.xpFor(grade.correct(), hintUsed, "BOSS".equals(ex.lessonKind()));
-        String submitted = req.text() != null ? req.text() : String.valueOf(req.choices());
+        String submitted = req.text() != null ? req.text()
+                : req.point() != null ? "(" + req.point().re() + ", " + req.point().im() + ")"
+                : String.valueOf(req.choices());
         jdbc.sql("""
                         INSERT INTO attempts (user_id, exercise_id, answer, correct, hint_used, time_ms)
                         VALUES (:u, :e, :a, :c, :h, :t)""")

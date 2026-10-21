@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Rich, RichInline } from '../../lib/Rich'
 import type { AnswerPayload, AnswerResult, Exercise } from '../../lib/types'
 import { CheckIcon, CrossIcon } from '../Icons'
+import { PlotInput } from './PlotInput'
 
 interface Props {
   exercise: Exercise
@@ -67,6 +68,15 @@ export function ExerciseView({ exercise, result, onChange }: Props) {
             ? 'Forme algébrique, par exemple 3 - 2i. L’ordre des termes n’a pas d’importance.'
             : 'Valeur exacte (sqrt(10), 1/2) ou décimale.'}
         </p>
+      </div>
+    )
+  }
+
+  if (exercise.type === 'PLOT') {
+    return (
+      <div>
+        {header}
+        <PlotInput key={exercise.id} range={exercise.range} locked={locked} correct={result?.correct} onChange={onChange} />
       </div>
     )
   }

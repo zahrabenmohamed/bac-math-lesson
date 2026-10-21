@@ -13,7 +13,13 @@
       "example": {
         "statement": "Écrire $z = 1 + i$ sous forme trigonométrique.",
         "solution": "$|z| = \\sqrt{2}$, $\\cos\\theta = \\dfrac{1}{\\sqrt{2}}$ et $\\sin\\theta = \\dfrac{1}{\\sqrt{2}}$ donc $\\theta = \\dfrac{\\pi}{4}$ et $z = \\sqrt{2}\\left(\\cos\\dfrac{\\pi}{4} + i\\sin\\dfrac{\\pi}{4}\\right)$."
-      }
+      },
+      "widget": {
+        "name": "argand",
+        "modulus": true,
+        "polar": true
+      },
+      "keypoint": "$z = r(\\cos\\theta + i\\sin\\theta)$ : $r = OM$ est le module et $\\theta$ l’angle entre l’axe des abscisses et $\\overrightarrow{OM}$."
     },
     {
       "type": "EXPLANATION",
@@ -22,7 +28,12 @@
       "example": {
         "statement": "Déterminer un argument de $(1 + i)\\,i$.",
         "solution": "$\\arg(1 + i) = \\dfrac{\\pi}{4}$ et $\\arg i = \\dfrac{\\pi}{2}$, donc $\\arg\\big((1+i)i\\big) \\equiv \\dfrac{3\\pi}{4} \\;[2\\pi]$. On vérifie : $(1+i)i = -1 + i$."
-      }
+      },
+      "widget": {
+        "name": "operations",
+        "op": "multiply"
+      },
+      "keypoint": "Produit : les modules se multiplient, les arguments s’additionnent."
     },
     {
       "type": "EXERCISE",
@@ -144,6 +155,25 @@
         },
         "solution": "$|z| = \\sqrt{2}$, $\\cos\\theta = \\dfrac{1}{\\sqrt{2}}$, $\\sin\\theta = -\\dfrac{1}{\\sqrt{2}}$ donc $\\theta = -\\dfrac{\\pi}{4}$.",
         "hint": "Vérifiez le signe du cosinus et du sinus."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L05-E5",
+        "type": "PLOT",
+        "skill": "Forme trigonométrique",
+        "payload": {
+          "prompt": "Placez le point d’affixe $z = 2\\left(\\cos\\dfrac{\\pi}{2} + i\\sin\\dfrac{\\pi}{2}\\right)$.",
+          "range": 5
+        },
+        "answer": {
+          "re": 0,
+          "im": 2,
+          "tolerance": 0.25
+        },
+        "solution": "$\\cos\\dfrac{\\pi}{2} = 0$ et $\\sin\\dfrac{\\pi}{2} = 1$ donc $z = 2i$ : $M(0, 2)$.",
+        "hint": "Calculez $\\cos\\dfrac{\\pi}{2}$ et $\\sin\\dfrac{\\pi}{2}$."
       }
     }
   ]

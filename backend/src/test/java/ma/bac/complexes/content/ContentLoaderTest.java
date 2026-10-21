@@ -29,11 +29,11 @@ class ContentLoaderTest {
     void loadsChapterLessonsStepsAndExercises() {
         assertThat(count("chapters")).isEqualTo(9);
         assertThat(count("lessons")).isEqualTo(9);
-        assertThat(count("exercises")).isEqualTo(41);
+        assertThat(count("exercises")).isEqualTo(47);
         long explanations = jdbc.sql("SELECT COUNT(*) FROM steps WHERE type = 'EXPLANATION'").query(Long.class).single();
         long exerciseSteps = jdbc.sql("SELECT COUNT(*) FROM steps WHERE type = 'EXERCISE'").query(Long.class).single();
         assertThat(explanations).isEqualTo(19);
-        assertThat(exerciseSteps).isEqualTo(41);
+        assertThat(exerciseSteps).isEqualTo(47);
     }
 
     @Test
@@ -42,8 +42,8 @@ class ContentLoaderTest {
         loader.load();
         loader.load();
         assertThat(count("lessons")).isEqualTo(9);
-        assertThat(count("exercises")).isEqualTo(41);
-        assertThat(count("steps")).isEqualTo(60);
+        assertThat(count("exercises")).isEqualTo(47);
+        assertThat(count("steps")).isEqualTo(66);
         assertThat(jdbc.sql("SELECT id FROM exercises ORDER BY id").query(Long.class).list()).isEqualTo(before);
     }
 
@@ -58,9 +58,11 @@ class ContentLoaderTest {
             JsonNode answer = mapper.readTree(r[3]);
             List<String> choices = null;
             String text = null;
+            ma.bac.complexes.grading.Point point = null;
             switch (r[1]) {
                 case "QCM" -> choices = mapper.convertValue(answer.get("correct"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {});
                 case "METHOD" -> choices = mapper.convertValue(answer.get("order"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {});
+                case "PLOT" -> point = new ma.bac.complexes.grading.Point(answer.get("re").asDouble(), answer.get("im").asDouble());
                 default -> {
                     if (answer.has("value")) {
                         text = Double.toString(answer.get("value").asDouble());
@@ -70,8 +72,23 @@ class ContentLoaderTest {
                     }
                 }
             }
-            assertThat(grader.grade(r[1], payload, answer, choices, text).correct()).as(r[0] + " model answer").isTrue();
+            assertThat(grader.grade(r[1], payload, answer, choices, text, point).correct()).as(r[0] + " model answer").isTrue();
         }
+    }
+
+    @Test
+    void everyWidgetNameUsedByAnExplanationIsKnown() throws Exception {
+        Set<String> known = Set.of("argand", "operations", "unit-circle", "quadratic", "transform", "segment", "alignment", "i-powers");
+        List<String> contents = jdbc.sql("SELECT content FROM steps WHERE type = 'EXPLANATION'").query(String.class).list();
+        int widgets = 0;
+        for (String content : contents) {
+            JsonNode step = mapper.readTree(content);
+            if (step.has("widget")) {
+                widgets++;
+                assertThat(known).as("widget in " + step.get("title").asText()).contains(step.get("widget").get("name").asText());
+            }
+        }
+        assertThat(widgets).isEqualTo(14);
     }
 
     @Test
@@ -95,6 +112,11 @@ class ContentLoaderTest {
                 }
                 case "NUMERIC" -> assertThat(answer.has("value") || (answer.has("re") && answer.has("im")))
                         .as(code).isTrue();
+                case "PLOT" -> {
+                    assertThat(answer.has("re") && answer.has("im")).as(code).isTrue();
+                    assertThat(payload.get("range").asDouble()).as(code)
+                            .isGreaterThan(Math.max(Math.abs(answer.get("re").asDouble()), Math.abs(answer.get("im").asDouble())));
+                }
                 case "METHOD" -> {
                     JsonNode stages = payload.get("stages");
                     assertThat(answer.get("order")).as(code).hasSize(stages.size());

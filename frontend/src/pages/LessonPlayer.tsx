@@ -7,6 +7,7 @@ import { ExerciseView } from '../components/exercises/ExerciseView'
 import { api } from '../lib/api'
 import { initialPlayerState, playerReducer } from '../lib/player'
 import { Rich } from '../lib/Rich'
+import { WidgetHost } from '../widgets/WidgetHost'
 import type { AnswerPayload } from '../lib/types'
 
 export function LessonPlayer() {
@@ -128,6 +129,13 @@ export function LessonPlayer() {
             <p className="mb-1 text-xs font-medium uppercase tracking-wide text-muted">{lesson.title}</p>
             <h1 className="mb-4 text-2xl font-semibold tracking-tight">{step.title}</h1>
             <Rich text={step.body} />
+            {step.widget && <WidgetHost widget={step.widget} />}
+            {step.keypoint && (
+              <aside aria-label="À retenir" className="mt-6 rounded-xl border-l-4 border-brand bg-brand-soft p-4">
+                <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-brand">À retenir</p>
+                <Rich text={step.keypoint} />
+              </aside>
+            )}
             {step.example && (
               <section className="mt-6 rounded-xl border border-line bg-surface p-5" aria-label="Exemple">
                 <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-brand">Exemple</h2>

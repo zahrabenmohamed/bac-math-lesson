@@ -13,7 +13,13 @@
       "example": {
         "statement": "Pour $z = 3 + 4i$, déterminer $\\overline{z}$ et $z\\,\\overline{z}$.",
         "solution": "$\\overline{z} = 3 - 4i$ et $z\\,\\overline{z} = (3+4i)(3-4i) = 9 - 16i^2 = 9 + 16 = 25$."
-      }
+      },
+      "widget": {
+        "name": "argand",
+        "conjugate": true,
+        "opposite": true
+      },
+      "keypoint": "$z\\,\\overline{z} = a^2 + b^2$ est un réel positif : c’est ce qui fait disparaître $i$ d’un dénominateur. Le conjugué $\\overline{z}$ est le symétrique de $z$ par rapport à l’axe des abscisses."
     },
     {
       "type": "EXERCISE",
@@ -25,14 +31,28 @@
           "prompt": "Quel est le conjugué de $z = -2 + 5i$ ?",
           "multiple": false,
           "options": [
-            { "id": "a", "text": "$-2 - 5i$" },
-            { "id": "b", "text": "$2 - 5i$" },
-            { "id": "c", "text": "$2 + 5i$" },
-            { "id": "d", "text": "$-2 + 5i$" }
+            {
+              "id": "a",
+              "text": "$-2 - 5i$"
+            },
+            {
+              "id": "b",
+              "text": "$2 - 5i$"
+            },
+            {
+              "id": "c",
+              "text": "$2 + 5i$"
+            },
+            {
+              "id": "d",
+              "text": "$-2 + 5i$"
+            }
           ]
         },
         "answer": {
-          "correct": ["a"],
+          "correct": [
+            "a"
+          ],
           "feedback": {
             "b": "Seul le signe de la partie imaginaire change : la partie réelle reste $-2$.",
             "c": "C’est l’opposé de $z$, pas son conjugué.",
@@ -50,7 +70,12 @@
       "example": {
         "statement": "Calculer $|3 - 4i|$ et $|1 + i|$.",
         "solution": "$|3-4i| = \\sqrt{9 + 16} = 5$ et $|1+i| = \\sqrt{1 + 1} = \\sqrt{2}$."
-      }
+      },
+      "widget": {
+        "name": "argand",
+        "modulus": true
+      },
+      "keypoint": "$|z|$ est la distance $OM$, et $|z|^2 = z\\,\\overline{z}$."
     },
     {
       "type": "EXERCISE",
@@ -63,7 +88,10 @@
           "format": "real",
           "placeholder": "ex. 13"
         },
-        "answer": { "value": 13, "tolerance": 0.0001 },
+        "answer": {
+          "value": 13,
+          "tolerance": 0.0001
+        },
         "solution": "$|5-12i| = \\sqrt{25 + 144} = \\sqrt{169} = 13$.",
         "hint": "Utilisez $|a + bi| = \\sqrt{a^2 + b^2}$."
       }
@@ -75,7 +103,12 @@
       "example": {
         "statement": "Écrire $\\dfrac{1}{1 + 2i}$ sous forme algébrique.",
         "solution": "$\\dfrac{1}{1+2i} = \\dfrac{1-2i}{(1+2i)(1-2i)} = \\dfrac{1-2i}{5} = \\dfrac{1}{5} - \\dfrac{2}{5}\\,i$."
-      }
+      },
+      "widget": {
+        "name": "operations",
+        "op": "add"
+      },
+      "keypoint": "Pour un quotient : multiplier le numérateur et le dénominateur par le conjugué du dénominateur."
     },
     {
       "type": "EXERCISE",
@@ -88,7 +121,11 @@
           "format": "complex",
           "placeholder": "ex. 1/2 - 1/2 i"
         },
-        "answer": { "re": 0.5, "im": -0.5, "tolerance": 0.001 },
+        "answer": {
+          "re": 0.5,
+          "im": -0.5,
+          "tolerance": 0.001
+        },
         "solution": "$\\dfrac{1}{1+i} = \\dfrac{1-i}{(1+i)(1-i)} = \\dfrac{1-i}{2} = \\dfrac12 - \\dfrac12\\,i$.",
         "hint": "Multipliez numérateur et dénominateur par le conjugué du dénominateur."
       }
@@ -103,14 +140,29 @@
           "prompt": "Quelles affirmations sont vraies pour tout nombre complexe $z$ ? (plusieurs réponses possibles)",
           "multiple": true,
           "options": [
-            { "id": "a", "text": "$z\\,\\overline{z}$ est un réel positif ou nul" },
-            { "id": "b", "text": "$|\\overline{z}| = |z|$" },
-            { "id": "c", "text": "$z + \\overline{z}$ est un imaginaire pur" },
-            { "id": "d", "text": "$|z|^2 = z^2$" }
+            {
+              "id": "a",
+              "text": "$z\\,\\overline{z}$ est un réel positif ou nul"
+            },
+            {
+              "id": "b",
+              "text": "$|\\overline{z}| = |z|$"
+            },
+            {
+              "id": "c",
+              "text": "$z + \\overline{z}$ est un imaginaire pur"
+            },
+            {
+              "id": "d",
+              "text": "$|z|^2 = z^2$"
+            }
           ]
         },
         "answer": {
-          "correct": ["a", "b"],
+          "correct": [
+            "a",
+            "b"
+          ],
           "feedback": {
             "a": "$z\\,\\overline{z} = a^2 + b^2 \\geq 0$.",
             "b": "$|\\overline{z}| = \\sqrt{a^2 + (-b)^2} = |z|$.",
@@ -134,31 +186,62 @@
             {
               "question": "Comment faire disparaître $i$ du dénominateur ?",
               "options": [
-                { "id": "s1a", "text": "Multiplier numérateur et dénominateur par $1 + i$" },
-                { "id": "s1b", "text": "Multiplier numérateur et dénominateur par $1 - i$" },
-                { "id": "s1c", "text": "Multiplier seulement le numérateur par $1 + i$" }
+                {
+                  "id": "s1a",
+                  "text": "Multiplier numérateur et dénominateur par $1 + i$"
+                },
+                {
+                  "id": "s1b",
+                  "text": "Multiplier numérateur et dénominateur par $1 - i$"
+                },
+                {
+                  "id": "s1c",
+                  "text": "Multiplier seulement le numérateur par $1 + i$"
+                }
               ]
             },
             {
               "question": "Résultat du calcul",
               "options": [
-                { "id": "s2a", "text": "$\\dfrac{(2+i)(1+i)}{(1-i)(1+i)} = \\dfrac{1 + 3i}{2}$" },
-                { "id": "s2b", "text": "$\\dfrac{(2+i)(1+i)}{(1-i)(1+i)} = \\dfrac{3 + 3i}{2}$" },
-                { "id": "s2c", "text": "$\\dfrac{(2+i)(1+i)}{(1-i)(1+i)} = \\dfrac{1 + 3i}{-2}$" }
+                {
+                  "id": "s2a",
+                  "text": "$\\dfrac{(2+i)(1+i)}{(1-i)(1+i)} = \\dfrac{1 + 3i}{2}$"
+                },
+                {
+                  "id": "s2b",
+                  "text": "$\\dfrac{(2+i)(1+i)}{(1-i)(1+i)} = \\dfrac{3 + 3i}{2}$"
+                },
+                {
+                  "id": "s2c",
+                  "text": "$\\dfrac{(2+i)(1+i)}{(1-i)(1+i)} = \\dfrac{1 + 3i}{-2}$"
+                }
               ]
             },
             {
               "question": "Forme algébrique",
               "options": [
-                { "id": "s3a", "text": "$\\dfrac{1}{2} + \\dfrac{3}{2}\\,i$" },
-                { "id": "s3b", "text": "$1 + 3i$" },
-                { "id": "s3c", "text": "$\\dfrac{1}{2} + 3i$" }
+                {
+                  "id": "s3a",
+                  "text": "$\\dfrac{1}{2} + \\dfrac{3}{2}\\,i$"
+                },
+                {
+                  "id": "s3b",
+                  "text": "$1 + 3i$"
+                },
+                {
+                  "id": "s3c",
+                  "text": "$\\dfrac{1}{2} + 3i$"
+                }
               ]
             }
           ]
         },
         "answer": {
-          "order": ["s1a", "s2a", "s3a"],
+          "order": [
+            "s1a",
+            "s2a",
+            "s3a"
+          ],
           "feedback": {
             "s1b": "$(1-i)^2 = -2i$ n’est pas un réel. Il faut multiplier par le conjugué $1 + i$.",
             "s1c": "Multiplier seulement le numérateur change la valeur de la fraction.",
@@ -183,7 +266,10 @@
           "format": "real",
           "placeholder": "ex. sqrt(10)"
         },
-        "answer": { "value": 3.1622776601683795, "tolerance": 0.01 },
+        "answer": {
+          "value": 3.1622776601683795,
+          "tolerance": 0.01
+        },
         "solution": "$|(1+i)(1-2i)| = |1+i|\\,|1-2i| = \\sqrt{2}\\times\\sqrt{5} = \\sqrt{10} \\approx 3{,}16$.",
         "hint": "Le module d’un produit est le produit des modules."
       }

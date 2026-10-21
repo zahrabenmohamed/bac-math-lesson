@@ -13,7 +13,11 @@
       "example": {
         "statement": "Soit $A(1 + 2i)$ et $B(4 + 6i)$. Calculer l’affixe de $\\overrightarrow{AB}$ et la distance $AB$.",
         "solution": "$z_{\\overrightarrow{AB}} = (4 + 6i) - (1 + 2i) = 3 + 4i$ et $AB = |3 + 4i| = \\sqrt{9 + 16} = 5$."
-      }
+      },
+      "widget": {
+        "name": "segment"
+      },
+      "keypoint": "« Arrivée moins départ » : $z_{\\overrightarrow{AB}} = z_B - z_A$, et $AB = |z_B - z_A|$."
     },
     {
       "type": "EXPLANATION",
@@ -22,7 +26,14 @@
       "example": {
         "statement": "Soit $M$ d’affixe $z = 2 - 3i$. Donner les affixes de ses symétriques par rapport à l’axe des abscisses et à $O$.",
         "solution": "Par rapport à l’axe des abscisses : $\\overline{z} = 2 + 3i$. Par rapport à $O$ : $-z = -2 + 3i$."
-      }
+      },
+      "widget": {
+        "name": "argand",
+        "conjugate": true,
+        "opposite": true,
+        "modulus": true
+      },
+      "keypoint": "$\\overline{z}$ : symétrique par rapport à l’axe des abscisses. $-z$ : symétrique par rapport à $O$. $|z| = OM$."
     },
     {
       "type": "EXERCISE",
@@ -145,6 +156,44 @@
         },
         "solution": "$\\dfrac{z_A + z_B}{2} = \\dfrac{(2 - i) + (-1 + 3i)}{2} = \\dfrac{1 + 2i}{2} = \\dfrac{1}{2} + i$.",
         "hint": "Le milieu a pour affixe la demi-somme des affixes."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L03-E5",
+        "type": "PLOT",
+        "skill": "Plan complexe",
+        "payload": {
+          "prompt": "Placez le point $M$ d’affixe $z = 3 - 2i$.",
+          "range": 5
+        },
+        "answer": {
+          "re": 3,
+          "im": -2,
+          "tolerance": 0.25
+        },
+        "solution": "L’abscisse de $M$ est $\\operatorname{Re}(z) = 3$ et son ordonnée $\\operatorname{Im}(z) = -2$ : $M(3, -2)$.",
+        "hint": "Abscisse = partie réelle, ordonnée = partie imaginaire."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L03-E6",
+        "type": "PLOT",
+        "skill": "Conjugué",
+        "payload": {
+          "prompt": "Soit $z = 2 + 3i$. Placez le point d’affixe $\\overline{z}$.",
+          "range": 5
+        },
+        "answer": {
+          "re": 2,
+          "im": -3,
+          "tolerance": 0.25
+        },
+        "solution": "$\\overline{z} = 2 - 3i$ : c’est le symétrique de $(2, 3)$ par rapport à l’axe des abscisses, soit $(2, -3)$.",
+        "hint": "Le conjugué change le signe de la partie imaginaire."
       }
     }
   ]

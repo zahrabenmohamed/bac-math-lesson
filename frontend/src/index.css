@@ -33,6 +33,8 @@
   --correct: #12805c;
   --incorrect: #c8283f;
   --warning: #ffb020;
+  --viz-a: #b45309;
+  --viz-b: #0e7490;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -50,6 +52,8 @@
     --correct: #3dd598;
     --incorrect: #ff7a8c;
     --warning: #ffc266;
+    --viz-a: #fbbf24;
+    --viz-b: #67e8f9;
   }
 }
 
@@ -67,6 +71,8 @@
   --correct: #3dd598;
   --incorrect: #ff7a8c;
   --warning: #ffc266;
+  --viz-a: #fbbf24;
+  --viz-b: #67e8f9;
 }
 
 body {

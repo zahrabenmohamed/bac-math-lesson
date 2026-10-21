@@ -1,7 +1,9 @@
 package ma.bac.complexes.learning;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
+import ma.bac.complexes.grading.Point;
 import java.util.List;
 
 /** Public ids are the stable content codes (chapter "complexes", lesson "L01", exercise "L01-E1"). */
@@ -21,7 +23,7 @@ public final class LearningDtos {
                                  int lessonsTotal, int lessonsDone, String nextLessonId) {}
 
     public record AnswerRequest(@Size(max = 20) List<@Size(max = 40) String> choices,
-                                @Size(max = 200) String text, Integer timeMs) {}
+                                @Size(max = 200) String text, @Valid Point point, Integer timeMs) {}
 
     public record AnswerResponse(boolean correct, String explanation, String solution, int xpAwarded,
                                  boolean mastered, List<Boolean> stageResults) {}

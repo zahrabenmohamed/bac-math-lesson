@@ -13,7 +13,12 @@
       "example": {
         "statement": "Donner la forme algébrique de $e^{i\\pi/2}$ et de $e^{i\\pi}$.",
         "solution": "$e^{i\\pi/2} = \\cos\\dfrac{\\pi}{2} + i\\sin\\dfrac{\\pi}{2} = i$ et $e^{i\\pi} = \\cos\\pi + i\\sin\\pi = -1$."
-      }
+      },
+      "widget": {
+        "name": "unit-circle",
+        "mode": "euler"
+      },
+      "keypoint": "$e^{i\\theta}$ est le point du cercle de rayon $1$ repéré par l’angle $\\theta$ : $|e^{i\\theta}| = 1$."
     },
     {
       "type": "EXPLANATION",
@@ -22,7 +27,12 @@
       "example": {
         "statement": "Calculer $(1 + i)^4$.",
         "solution": "$1 + i = \\sqrt{2}\\,e^{i\\pi/4}$ donc $(1+i)^4 = (\\sqrt{2})^4\\,e^{i\\pi} = 4 \\times (-1) = -4$."
-      }
+      },
+      "widget": {
+        "name": "unit-circle",
+        "mode": "moivre"
+      },
+      "keypoint": "Moivre : $(e^{i\\theta})^n = e^{in\\theta}$. On multiplie l’angle par $n$ ; le module reste $1$."
     },
     {
       "type": "EXERCISE",
@@ -188,6 +198,25 @@
         },
         "solution": "$e^{i\\theta} + e^{-i\\theta} = 2\\cos\\theta$ donc $\\cos\\theta = \\dfrac{e^{i\\theta} + e^{-i\\theta}}{2}$.",
         "hint": "Additionnez $e^{i\\theta}$ et $e^{-i\\theta}$."
+      }
+    },
+    {
+      "type": "EXERCISE",
+      "exercise": {
+        "code": "L06-E6",
+        "type": "PLOT",
+        "skill": "Notation exponentielle",
+        "payload": {
+          "prompt": "Placez le point d’affixe $e^{i\\pi}$.",
+          "range": 5
+        },
+        "answer": {
+          "re": -1,
+          "im": 0,
+          "tolerance": 0.25
+        },
+        "solution": "$e^{i\\pi} = \\cos\\pi + i\\sin\\pi = -1$ : $M(-1, 0)$.",
+        "hint": "$e^{i\\pi} = \\cos\\pi + i\\sin\\pi$."
       }
     }
   ]
