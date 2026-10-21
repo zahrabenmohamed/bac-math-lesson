@@ -51,8 +51,18 @@ npm run dev          # http://localhost:5173
 
 ```bash
 cd backend && mvn test      # règles XP/série/maîtrise, parseur et correction, contenu, API (MockMvc + sécurité)
-cd frontend && npm test     # logique du lecteur de leçon
+cd frontend && npm test     # lecteur de leçon (logique + écran), exercices QCM / numérique / méthode, rendu KaTeX
 ```
+
+## Storybook
+
+```bash
+cd frontend && npm run storybook      # http://localhost:6006 (thème clair/sombre dans la barre d'outils)
+```
+
+Stories : `ExerciseView` (QCM simple et multiple, numérique, étapes de méthode, correction par étape), `Emblem`, `Rich`.
+Les stories interactives ont des `play` functions et l'onglet Accessibilité (axe) est activé.
+`npm run build-storybook` produit une version statique (`storybook-static/`, ignorée par git).
 
 Les tests de contenu vérifient la cohérence de chaque exercice et que la **réponse modèle** de chacun est jugée correcte
 par le vrai correcteur.
@@ -116,4 +126,4 @@ Les identifiants publics sont les codes de contenu (`L01`, `L01-E1`).
 ## Hors périmètre du MVP
 
 Autres chapitres, connexion par OTP téléphonique, mode hors-ligne, interface d'administration, paiements, vidéo,
-arabe/RTL, saisie manuscrite. Storybook n'est pas encore installé (les composants sont dans `frontend/src/components`).
+arabe/RTL, saisie manuscrite.

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Rich } from '../../lib/Rich'
+import { Rich, RichInline } from '../../lib/Rich'
 import type { AnswerPayload, AnswerResult, Exercise } from '../../lib/types'
 import { CheckIcon, CrossIcon } from '../Icons'
 
@@ -42,8 +42,9 @@ export function ExerciseView({ exercise, result, onChange }: Props) {
           {exercise.options.map((o) => (
             <label key={o.id} className={optionClass(choices.includes(o.id), locked)}>
               <input type={exercise.multiple ? 'checkbox' : 'radio'} name={exercise.id}
+                aria-labelledby={`${exercise.id}-${o.id}`}
                 className="mt-1.5 accent-[var(--brand)]" checked={choices.includes(o.id)} onChange={() => toggle(o.id)} />
-              <Rich text={o.text} />
+              <RichInline id={`${exercise.id}-${o.id}`} text={o.text} />
             </label>
           ))}
         </div>
@@ -84,7 +85,7 @@ export function ExerciseView({ exercise, result, onChange }: Props) {
           <li key={i}>
             <fieldset disabled={locked}>
               <legend className="mb-2 flex items-center gap-2 font-medium">
-                <span className="font-mono text-sm text-muted">Étape {i + 1}</span> <Rich text={st.question} />
+                <span className="font-mono text-sm text-muted">Étape {i + 1}</span> <RichInline text={st.question} />
                 {result?.stageResults && (
                   <span className={`ml-auto flex items-center gap-1 text-sm ${result.stageResults[i] ? 'text-correct' : 'text-incorrect'}`}>
                     {result.stageResults[i] ? <><CheckIcon /> Correct</> : <><CrossIcon /> Incorrect</>}
@@ -95,8 +96,9 @@ export function ExerciseView({ exercise, result, onChange }: Props) {
                 {st.options.map((o) => (
                   <label key={o.id} className={optionClass(choices[i] === o.id, locked)}>
                     <input type="radio" name={`${exercise.id}-${i}`} className="mt-1.5 accent-[var(--brand)]"
+                      aria-labelledby={`${exercise.id}-${i}-${o.id}`}
                       checked={choices[i] === o.id} onChange={() => pick(i, o.id)} />
-                    <Rich text={o.text} />
+                    <RichInline id={`${exercise.id}-${i}-${o.id}`} text={o.text} />
                   </label>
                 ))}
               </div>

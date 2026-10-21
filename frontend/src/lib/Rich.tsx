@@ -18,6 +18,11 @@ function Inline({ text }: { text: string }) {
   return <>{parts}</>
 }
 
+/** Inline-only variant (a single span): valid inside <label>, <legend>, buttons. */
+export function RichInline({ text, id, className }: { text: string; id?: string; className?: string }) {
+  return <span id={id} className={className}><Inline text={text} /></span>
+}
+
 /** Minimal rich text: paragraphs, "- " lists, **bold**, $inline$ and $$display$$ KaTeX. */
 export function Rich({ text, className = '' }: { text: string; className?: string }) {
   const blocks = text.split(/\n\n+/)
