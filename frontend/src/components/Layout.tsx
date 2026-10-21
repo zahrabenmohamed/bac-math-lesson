@@ -1,7 +1,8 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { api } from '../lib/api'
+import { clearSession, getName, USE_MOCK } from '../lib/auth'
 import { BoltIcon, FlameIcon } from './Icons'
 
 type Theme = 'light' | 'dark' | 'system'
@@ -24,6 +25,7 @@ const link = ({ isActive }: { isActive: boolean }) =>
 
 export function Layout() {
   const [theme, setTheme] = useTheme()
+  const qc = useQueryClient()
   const { data } = useQuery({ queryKey: ['progress'], queryFn: api.getProgress })
   const next: Theme = theme === 'light' ? 'dark' : theme === 'dark' ? 'system' : 'light'
   const label = { light: 'Clair', dark: 'Sombre', system: 'Auto' }[theme]
@@ -48,6 +50,12 @@ export function Layout() {
               title={`Niveau ${data?.level ?? 1}`}>
               <BoltIcon /> <span className="font-mono">{data?.xp ?? 0}</span> XP
             </span>
+            {!USE_MOCK && (
+              <button type="button" onClick={() => { clearSession(); qc.clear() }}
+                className="rounded-md px-2 py-1 text-muted hover:text-text" title={getName() ?? undefined}>
+                Déconnexion
+              </button>
+            )}
             <button type="button" onClick={() => setTheme(next)}
               className="rounded-md border border-line px-2 py-1 text-muted hover:text-text"
               aria-label={`Thème : ${label}. Changer.`}>

@@ -18,6 +18,7 @@ export function LessonPlayer() {
   const [state, dispatch] = useReducer(playerReducer, initialPlayerState)
   const [answer, setAnswer] = useState<AnswerPayload | null>(null)
   const [busy, setBusy] = useState(false)
+  const [actionError, setActionError] = useState<string | null>(null)
   const primaryRef = useRef<HTMLButtonElement>(null)
 
   const total = lesson?.steps.length ?? 0
@@ -34,15 +35,24 @@ export function LessonPlayer() {
     if (!step || !canAct) return
     if (step.type === 'EXERCISE' && !state.result) {
       setBusy(true)
+      setActionError(null)
       try {
         const result = await api.answer(step.exercise.id, answer!, state.hintUsed)
         dispatch({ type: 'checked', result })
         qc.invalidateQueries({ queryKey: ['progress'] })
+      } catch (e) {
+        setActionError(e instanceof Error ? e.message : 'Une erreur est survenue.')
       } finally { setBusy(false) }
       return
     }
     setAnswer(null)
-    if (state.index + 1 >= total) await finish()
+    setActionError(null)
+    if (state.index + 1 >= total) {
+      try { await finish() } catch (e) {
+        setActionError(e instanceof Error ? e.message : 'Une erreur est survenue.')
+        return
+      }
+    }
     dispatch({ type: 'next', total })
   }, [step, canAct, state.result, state.hintUsed, state.index, answer, total, qc, finish])
 
@@ -151,6 +161,7 @@ export function LessonPlayer() {
 
       <footer className={`sticky bottom-0 border-t ${result ? (result.correct ? 'border-correct' : 'border-incorrect') : 'border-line'} bg-surface`}>
         <div className="mx-auto max-w-3xl px-4 py-4">
+          {actionError && <p role="alert" className="mb-3 text-sm font-medium text-incorrect">{actionError}</p>}
           {result && (
             <div role="status" aria-live="polite" className="mb-4">
               <p className={`flex items-center gap-2 text-lg font-semibold ${result.correct ? 'text-correct' : 'text-incorrect'}`}>

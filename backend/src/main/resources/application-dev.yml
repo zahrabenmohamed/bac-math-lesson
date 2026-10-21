@@ -1,0 +1,9 @@
+# Local development without Postgres/Docker:
+#   JWT_SECRET=dev-only-secret-dev-only-secret-0123456789 mvn spring-boot:run -Dspring-boot.run.profiles=dev
+# Data lives in memory and is re-seeded from the JSON content at every start.
+spring:
+  datasource:
+    url: jdbc:h2:mem:complexes;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver

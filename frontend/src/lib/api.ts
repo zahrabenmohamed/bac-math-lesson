@@ -1,5 +1,6 @@
+import { USE_MOCK } from './auth'
 import { mockApi } from './mock/api'
+import { restApi } from './rest/api'
 import type { Api } from './types'
 
-// The REST client (see docs/PLAN.md) replaces this once the backend endpoints exist (milestone c/d).
-export const api: Api = mockApi
+export const api: Api = USE_MOCK ? mockApi : restApi

@@ -1,20 +1,32 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import { useAuthenticated } from './lib/auth'
 import { ChapterMap } from './pages/ChapterMap'
 import { LessonPlayer } from './pages/LessonPlayer'
+import { Login } from './pages/Login'
 import { Mistakes } from './pages/Mistakes'
 import { Profile } from './pages/Profile'
 
+function RequireAuth() {
+  return useAuthenticated() ? <Outlet /> : <Navigate to="/connexion" replace />
+}
+
 const router = createBrowserRouter([
+  { path: '/connexion', element: <Login /> },
   {
-    element: <Layout />,
+    element: <RequireAuth />,
     children: [
-      { path: '/', element: <ChapterMap /> },
-      { path: '/erreurs', element: <Mistakes /> },
-      { path: '/profil', element: <Profile /> },
+      {
+        element: <Layout />,
+        children: [
+          { path: '/', element: <ChapterMap /> },
+          { path: '/erreurs', element: <Mistakes /> },
+          { path: '/profil', element: <Profile /> },
+        ],
+      },
+      { path: '/lecons/:id', element: <LessonPlayer /> },
     ],
   },
-  { path: '/lecons/:id', element: <LessonPlayer /> },
 ])
 
 export default function App() {
