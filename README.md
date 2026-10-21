@@ -80,7 +80,8 @@ par le vrai correcteur.
 | Méthode | Route | Rôle |
 |---|---|---|
 | POST | `/auth/register`, `/auth/login` | e-mail + mot de passe → JWT |
-| GET | `/chapters/complexes` | leçons + progression (verrouillée / à faire / terminée) |
+| GET | `/chapters` | programme de l'année : tous les chapitres, disponibles ou « à venir », avec progression |
+| GET | `/chapters/{id}` | leçons d'un chapitre + progression (verrouillée / à faire / terminée) |
 | GET | `/lessons/{code}` | étapes sans solutions (403 si verrouillée) |
 | POST | `/lessons/{code}/complete` | termine la leçon (409 si exercices non traités) |
 | POST | `/exercises/{code}/answer` | `{choices}` ou `{text}` → `{correct, explanation, solution, xpAwarded, mastered}` |
@@ -97,6 +98,14 @@ Les identifiants publics sont les codes de contenu (`L01`, `L01-E1`).
 - **Réponses saisies** : `3 + 4i`, `4i + 3`, `1/2 - 1/2 i`, `sqrt(2)/2`, `pi/4`, décimales avec virgule ou point.
   Les réponses complexes doivent être sous forme algébrique `a + bi` (une réponse comme `(2+3i)+(1-5i)` est refusée comme
   non simplifiée). Une saisie illisible renvoie une erreur 400 et n'est pas comptée comme tentative.
+
+## Programme de l'année (page d'accueil)
+
+La page d'accueil liste tous les chapitres de l'année. Ils sont définis dans `backend/src/main/resources/content/program.json`
+(ordre, titre, résumé) ; un chapitre sans leçon s'affiche « à venir » et devient cliquable dès qu'il a des leçons.
+**La liste fournie est une proposition à valider avec votre programme officiel** : modifiez simplement le fichier et redémarrez le backend.
+Pour ouvrir un chapitre : ajouter `content/<code>/chapter.json` et ses `lesson-XX.json` (le `code` doit être celui de `program.json`).
+Le chargeur lit pour l'instant uniquement `content/complexes/` : pour un nouveau chapitre, dupliquer la ligne `BASE` de `ContentLoader`.
 
 ## Ajouter une leçon
 

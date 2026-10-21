@@ -1,0 +1,14 @@
+{
+  "_note": "Programme de l'année (2ème Bac Sciences Physiques / SVT). Ordre et intitulés à valider avec le Cadre de référence officiel. Un chapitre sans leçon s'affiche « à venir ». Le chapitre « complexes » est détaillé dans content/complexes/.",
+  "chapters": [
+    { "code": "limites-continuite", "title": "Limites et continuité", "summary": "Limites de fonctions, continuité, théorème des valeurs intermédiaires." },
+    { "code": "derivation", "title": "Dérivation et étude des fonctions", "summary": "Dérivées, variations, extremums, convexité, branches infinies." },
+    { "code": "suites", "title": "Suites numériques", "summary": "Suites arithmétiques et géométriques, convergence, suites récurrentes." },
+    { "code": "logarithme", "title": "Fonction logarithme népérien", "summary": "Définition, propriétés algébriques, étude de la fonction ln." },
+    { "code": "exponentielle", "title": "Fonction exponentielle", "summary": "Fonction exp, propriétés, croissances comparées." },
+    { "code": "complexes", "title": "Les nombres complexes", "summary": "Forme algébrique, trigonométrique et exponentielle, équations, applications géométriques." },
+    { "code": "integrale", "title": "Calcul intégral", "summary": "Intégrale, primitives, intégration par parties, calcul d'aires et de volumes." },
+    { "code": "equations-differentielles", "title": "Équations différentielles", "summary": "Équations linéaires du premier et du second ordre à coefficients constants." },
+    { "code": "probabilites", "title": "Dénombrement et probabilités", "summary": "Dénombrement, probabilité conditionnelle, variables aléatoires, loi binomiale." }
+  ]
+}

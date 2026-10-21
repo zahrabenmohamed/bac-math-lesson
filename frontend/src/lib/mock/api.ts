@@ -1,5 +1,5 @@
-import type { Api, ChapterDTO, Lesson, MistakeDTO, ProgressDTO, Step } from '../types'
-import { mockExercises, mockLessons } from './data'
+import type { Api, ChapterDTO, ChapterSummary, Lesson, MistakeDTO, ProgressDTO, Step } from '../types'
+import { mockExercises, mockLessons, mockProgram } from './data'
 
 interface Attempt { ex: string; lesson: string; skill: string; correct: boolean; at: number }
 interface Store {
@@ -30,7 +30,17 @@ const delay = <T,>(v: T) => new Promise<T>((r) => setTimeout(() => r(v), 120))
 const levelOf = (xp: number) => Math.floor(Math.sqrt(xp / 50)) + 1
 
 export const mockApi: Api = {
-  async getChapter(): Promise<ChapterDTO> {
+  async getProgram(): Promise<ChapterSummary[]> {
+    const chapter = await mockApi.getChapter('complexes')
+    return mockProgram.map(([id, title, summary], i) => {
+      if (id !== 'complexes') return { id, title, summary, position: i + 1, available: false, lessonsTotal: 0, lessonsDone: 0, nextLessonId: null }
+      const done = chapter.lessons.filter((l) => l.status === 'completed').length
+      const next = chapter.lessons.find((l) => l.status === 'unlocked')
+      return { id, title, summary, position: i + 1, available: true, lessonsTotal: chapter.lessons.length, lessonsDone: done, nextLessonId: next?.id ?? null }
+    })
+  },
+
+  async getChapter(_id): Promise<ChapterDTO> {
     const s = load()
     const lessons = mockLessons.map((l, i) => {
       const done = s.completed.includes(l.id)
@@ -55,11 +65,11 @@ export const mockApi: Api = {
       const steps: Step[] = Object.entries(s.mastery)
         .filter(([, m]) => !m.mastered)
         .map(([exId]) => ({ type: 'EXERCISE', exercise: mockExercises.get(exId)!.exercise }))
-      return delay({ id, title: 'Révision de mes erreurs', steps })
+      return delay({ id, title: 'Révision de mes erreurs', chapterId: null, steps })
     }
     const l = mockLessons.find((x) => x.id === id)
     if (!l) throw new Error('Leçon introuvable')
-    return delay({ id: l.id, title: l.title, steps: l.steps })
+    return delay({ id: l.id, title: l.title, chapterId: 'complexes', steps: l.steps })
   },
 
   async answer(exerciseId, payload, hintUsed) {

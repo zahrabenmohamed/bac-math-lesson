@@ -1,10 +1,10 @@
 import { request } from '../http'
-import type { AnswerPayload, AnswerResult, Api, ChapterDTO, Lesson, MistakeDTO, ProgressDTO } from '../types'
-
-const CHAPTER = 'complexes'
+import type { AnswerPayload, AnswerResult, Api, ChapterDTO, ChapterSummary, Lesson, MistakeDTO, ProgressDTO } from '../types'
 
 export const restApi: Api = {
-  getChapter: () => request<ChapterDTO>('GET', `/chapters/${CHAPTER}`),
+  getProgram: () => request<ChapterSummary[]>('GET', '/chapters'),
+
+  getChapter: (id) => request<ChapterDTO>('GET', `/chapters/${id}`),
 
   getLesson: (id) =>
     id === 'review' ? request<Lesson>('POST', '/me/review-session') : request<Lesson>('GET', `/lessons/${id}`),

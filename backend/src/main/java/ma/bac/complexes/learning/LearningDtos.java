@@ -14,7 +14,11 @@ public final class LearningDtos {
 
     public record ChapterDto(String id, String title, List<LessonSummary> lessons) {}
 
-    public record LessonDto(String id, String title, List<JsonNode> steps) {}
+    public record LessonDto(String id, String title, String chapterId, List<JsonNode> steps) {}
+
+    /** One chapter of the year's programme; {@code available} is false until it has lessons. */
+    public record ChapterSummary(String id, String title, String summary, int position, boolean available,
+                                 int lessonsTotal, int lessonsDone, String nextLessonId) {}
 
     public record AnswerRequest(@Size(max = 20) List<@Size(max = 40) String> choices,
                                 @Size(max = 200) String text, Integer timeMs) {}

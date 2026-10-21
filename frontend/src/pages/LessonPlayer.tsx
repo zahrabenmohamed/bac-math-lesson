@@ -15,6 +15,7 @@ export function LessonPlayer() {
   const { data: lesson, isPending, error } = useQuery({
     queryKey: ['lesson', id], queryFn: () => api.getLesson(id), staleTime: Infinity, gcTime: 0,
   })
+  const back = lesson?.chapterId ? `/chapitres/${lesson.chapterId}` : '/'
   const [state, dispatch] = useReducer(playerReducer, initialPlayerState)
   const [answer, setAnswer] = useState<AnswerPayload | null>(null)
   const [busy, setBusy] = useState(false)
@@ -76,7 +77,7 @@ export function LessonPlayer() {
       <div className="mx-auto max-w-xl p-8 text-center">
         <h1 className="text-2xl font-semibold">Rien à réviser</h1>
         <p className="mt-2 text-muted">Toutes vos erreurs sont maîtrisées.</p>
-        <Link to="/" className="mt-6 inline-block rounded-lg bg-brand px-5 py-2.5 font-medium text-on-brand">Retour au parcours</Link>
+        <Link to={back} className="mt-6 inline-block rounded-lg bg-brand px-5 py-2.5 font-medium text-on-brand">Retour au chapitre</Link>
       </div>
     )
   }
@@ -97,8 +98,8 @@ export function LessonPlayer() {
             <dd className="font-mono text-xl">+{state.xpGained}</dd>
           </div>
         </dl>
-        <Link to="/" autoFocus className="mt-8 inline-block rounded-lg bg-brand px-5 py-2.5 font-medium text-on-brand">
-          Retour au parcours
+        <Link to={back} autoFocus className="mt-8 inline-block rounded-lg bg-brand px-5 py-2.5 font-medium text-on-brand">
+          Retour au chapitre
         </Link>
       </div>
     )
@@ -112,7 +113,7 @@ export function LessonPlayer() {
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-line">
         <div className="mx-auto flex max-w-3xl items-center gap-4 px-4 py-3">
-          <Link to="/" aria-label="Quitter la leçon" className="text-muted hover:text-text"><CloseIcon /></Link>
+          <Link to={back} aria-label="Quitter la leçon" className="text-muted hover:text-text"><CloseIcon /></Link>
           <div className="h-2 flex-1 overflow-hidden rounded-full bg-line" role="progressbar" aria-label="Progression de la leçon"
             aria-valuenow={state.index} aria-valuemin={0} aria-valuemax={total}>
             <div className="h-full bg-brand transition-[width]" style={{ width: `${(state.index / total) * 100}%` }} />

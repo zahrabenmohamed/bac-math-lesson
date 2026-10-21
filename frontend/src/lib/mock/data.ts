@@ -220,3 +220,16 @@ export const mockLessons: MockLesson[] = [
   { id: 'L07', part: 2, kind: 'LESSON', title: 'Applications géométriques', steps: soon('L07') },
   { id: 'B2', part: 2, kind: 'BOSS', title: 'Exercice final — Partie 2', steps: soon('B2') },
 ]
+
+/** Demo programme: only « complexes » has lessons. Mirrors backend/src/main/resources/content/program.json. */
+export const mockProgram = [
+  ['limites-continuite', 'Limites et continuité', 'Limites de fonctions, continuité, théorème des valeurs intermédiaires.'],
+  ['derivation', 'Dérivation et étude des fonctions', 'Dérivées, variations, extremums, convexité, branches infinies.'],
+  ['suites', 'Suites numériques', 'Suites arithmétiques et géométriques, convergence, suites récurrentes.'],
+  ['logarithme', 'Fonction logarithme népérien', 'Définition, propriétés algébriques, étude de la fonction ln.'],
+  ['exponentielle', 'Fonction exponentielle', 'Fonction exp, propriétés, croissances comparées.'],
+  ['complexes', 'Les nombres complexes', 'Forme algébrique, trigonométrique et exponentielle, équations, applications géométriques.'],
+  ['integrale', 'Calcul intégral', 'Intégrale, primitives, intégration par parties, calcul d’aires et de volumes.'],
+  ['equations-differentielles', 'Équations différentielles', 'Équations linéaires du premier et du second ordre à coefficients constants.'],
+  ['probabilites', 'Dénombrement et probabilités', 'Dénombrement, probabilité conditionnelle, variables aléatoires, loi binomiale.'],
+] as const

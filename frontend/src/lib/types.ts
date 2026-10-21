@@ -39,6 +39,7 @@ export type Step =
 export interface Lesson {
   id: string
   title: string
+  chapterId?: string | null
   steps: Step[]
 }
 
@@ -72,8 +73,21 @@ export interface MistakeDTO {
   streak: number
 }
 
+/** One chapter of the year's programme; unavailable chapters have no lessons yet. */
+export interface ChapterSummary {
+  id: string
+  title: string
+  summary: string
+  position: number
+  available: boolean
+  lessonsTotal: number
+  lessonsDone: number
+  nextLessonId: string | null
+}
+
 export interface Api {
-  getChapter(): Promise<ChapterDTO>
+  getProgram(): Promise<ChapterSummary[]>
+  getChapter(id: string): Promise<ChapterDTO>
   getLesson(id: string): Promise<Lesson>
   answer(exerciseId: string, payload: AnswerPayload, hintUsed: boolean): Promise<AnswerResult>
   getHint(exerciseId: string): Promise<string>

@@ -27,7 +27,7 @@ class ContentLoaderTest {
 
     @Test
     void loadsChapterLessonsStepsAndExercises() {
-        assertThat(count("chapters")).isEqualTo(1);
+        assertThat(count("chapters")).isEqualTo(9);
         assertThat(count("lessons")).isEqualTo(9);
         assertThat(count("exercises")).isEqualTo(41);
         long explanations = jdbc.sql("SELECT COUNT(*) FROM steps WHERE type = 'EXPLANATION'").query(Long.class).single();

@@ -26,6 +26,11 @@ public class LearningController {
         return Long.parseLong(jwt.getSubject());
     }
 
+    @GetMapping("/chapters")
+    public List<ChapterSummary> program(@AuthenticationPrincipal Jwt jwt) {
+        return service.program(uid(jwt));
+    }
+
     @GetMapping("/chapters/{id}")
     public ChapterDto chapter(@AuthenticationPrincipal Jwt jwt, @PathVariable String id) {
         return service.chapter(uid(jwt), id);

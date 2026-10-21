@@ -82,6 +82,22 @@ class ApiFlowTest {
     }
 
     @Test
+    void programListsTheWholeYearInOrderAndMarksChaptersWithoutLessonsAsUnavailable() throws Exception {
+        getJson("/chapters").andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(9))
+                .andExpect(jsonPath("$[0].id").value("limites-continuite"))
+                .andExpect(jsonPath("$[0].position").value(1))
+                .andExpect(jsonPath("$[0].available").value(false))
+                .andExpect(jsonPath("$[0].nextLessonId").doesNotExist())
+                .andExpect(jsonPath("$[5].id").value("complexes"))
+                .andExpect(jsonPath("$[5].available").value(true))
+                .andExpect(jsonPath("$[5].lessonsTotal").value(9))
+                .andExpect(jsonPath("$[5].lessonsDone").value(0))
+                .andExpect(jsonPath("$[5].nextLessonId").value("L01"));
+        getJson("/chapters/derivation").andExpect(status().isOk()).andExpect(jsonPath("$.lessons.length()").value(0));
+    }
+
+    @Test
     void chapterShowsLockedLessonsAndLessonPayloadNeverLeaksAnswers() throws Exception {
         getJson("/chapters/complexes").andExpect(status().isOk())
                 .andExpect(jsonPath("$.lessons[0].id").value("L01"))
@@ -91,6 +107,7 @@ class ApiFlowTest {
 
         String lesson = getJson("/lessons/L01").andExpect(status().isOk())
                 .andExpect(jsonPath("$.steps.length()").value(10))
+                .andExpect(jsonPath("$.chapterId").value("complexes"))
                 .andReturn().getResponse().getContentAsString();
         assertThat(lesson).contains("\"id\":\"L01-E1\"");
         // Exercise steps must carry no server-only data (worked-example "solution" in explanations is fine).
@@ -169,6 +186,9 @@ class ApiFlowTest {
         getJson("/chapters/complexes").andExpect(jsonPath("$.lessons[0].status").value("completed"))
                 .andExpect(jsonPath("$.lessons[1].status").value("unlocked"));
         getJson("/lessons/L02").andExpect(status().isOk());
+
+        getJson("/chapters").andExpect(jsonPath("$[5].lessonsDone").value(1))
+                .andExpect(jsonPath("$[5].nextLessonId").value("L02"));
 
         getJson("/me/progress").andExpect(jsonPath("$.xp").value(60)).andExpect(jsonPath("$.level").value(2))
                 .andExpect(jsonPath("$.streakDays").value(1))

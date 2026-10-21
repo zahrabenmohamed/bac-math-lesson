@@ -53,6 +53,29 @@ public class LearningService {
 
     // ---------------------------------------------------------------- chapter & lessons
 
+    private record ChapterRow(String code, String title, String summary, int position, int lessons) {}
+
+    /** The whole year's programme with the student's progress in each chapter that has lessons. */
+    public List<ChapterSummary> program(long userId) {
+        List<ChapterRow> rows = jdbc.sql("""
+                        SELECT c.code, c.title, c.summary, c.position,
+                               (SELECT COUNT(*) FROM lessons l WHERE l.chapter_id = c.id) AS lessons
+                        FROM chapters c ORDER BY c.position, c.id""").query(ChapterRow.class).list();
+        List<ChapterSummary> out = new ArrayList<>();
+        for (ChapterRow r : rows) {
+            if (r.lessons() == 0) {
+                out.add(new ChapterSummary(r.code(), r.title(), r.summary(), r.position(), false, 0, 0, null));
+                continue;
+            }
+            List<LessonSummary> lessons = summaries(userId, r.code());
+            int done = (int) lessons.stream().filter(l -> "completed".equals(l.status())).count();
+            String next = lessons.stream().filter(l -> "unlocked".equals(l.status())).map(LessonSummary::id)
+                    .findFirst().orElse(null);
+            out.add(new ChapterSummary(r.code(), r.title(), r.summary(), r.position(), true, lessons.size(), done, next));
+        }
+        return out;
+    }
+
     public ChapterDto chapter(long userId, String chapterCode) {
         String title = jdbc.sql("SELECT title FROM chapters WHERE code = :c").param("c", chapterCode)
                 .query(String.class).optional()
@@ -111,7 +134,7 @@ public class LearningService {
                         WHERE l.code = :c ORDER BY s.position""")
                 .param("c", lessonCode).query(StepRow.class).list();
         List<JsonNode> steps = rows.stream().map(this::toStepNode).toList();
-        return new LessonDto(lessonCode, title, steps);
+        return new LessonDto(lessonCode, title, chapterCodeOfLesson(lessonCode), steps);
     }
 
     private JsonNode toStepNode(StepRow r) {
@@ -326,6 +349,6 @@ public class LearningService {
                         FROM exercise_mastery m JOIN exercises e ON e.id = m.exercise_id
                         WHERE m.user_id = :u AND m.ever_wrong AND NOT m.mastered ORDER BY e.id LIMIT 10""")
                 .param("u", userId).query(StepRow.class).list();
-        return new LessonDto("review", "Révision de mes erreurs", rows.stream().map(this::toStepNode).toList());
+        return new LessonDto("review", "Révision de mes erreurs", null, rows.stream().map(this::toStepNode).toList());
     }
 }

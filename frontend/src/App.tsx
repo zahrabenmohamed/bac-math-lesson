@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-rou
 import { Layout } from './components/Layout'
 import { useAuthenticated } from './lib/auth'
 import { ChapterMap } from './pages/ChapterMap'
+import { Home } from './pages/Home'
 import { LessonPlayer } from './pages/LessonPlayer'
 import { Login } from './pages/Login'
 import { Mistakes } from './pages/Mistakes'
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
       {
         element: <Layout />,
         children: [
-          { path: '/', element: <ChapterMap /> },
+          { path: '/', element: <Home /> },
+          { path: '/chapitres/:id', element: <ChapterMap /> },
           { path: '/erreurs', element: <Mistakes /> },
           { path: '/profil', element: <Profile /> },
         ],

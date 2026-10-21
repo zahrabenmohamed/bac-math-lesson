@@ -49,7 +49,25 @@ public class ContentLoader implements ApplicationRunner {
         });
     }
 
+    /** Program entries are metadata only; chapters with lesson files are detailed below. */
+    private void loadProgram() throws IOException {
+        int position = 1;
+        for (JsonNode c : read(resolver.getResource("classpath:content/program.json")).get("chapters")) {
+            String code = c.get("code").asText();
+            int updated = jdbc.sql("UPDATE chapters SET title = :t, summary = :s, position = :p WHERE code = :c")
+                    .param("t", c.get("title").asText()).param("s", c.path("summary").asText(""))
+                    .param("p", position).param("c", code).update();
+            if (updated == 0) {
+                jdbc.sql("INSERT INTO chapters (code, title, summary, position, status) VALUES (:c, :t, :s, :p, 'planned')")
+                        .param("c", code).param("t", c.get("title").asText()).param("s", c.path("summary").asText(""))
+                        .param("p", position).update();
+            }
+            position++;
+        }
+    }
+
     void load() throws IOException {
+        loadProgram();
         JsonNode chapter = read(resolver.getResource(BASE + "chapter.json"));
         long chapterId = upsertChapter(chapter);
 

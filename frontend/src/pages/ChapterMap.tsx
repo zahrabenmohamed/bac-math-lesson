@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Emblem } from '../components/Emblem'
 import { CheckIcon, LockIcon } from '../components/Icons'
 import { api } from '../lib/api'
@@ -39,7 +39,8 @@ function Node({ l, primary }: { l: LessonSummary; primary: boolean }) {
 }
 
 export function ChapterMap() {
-  const { data, isPending, error } = useQuery({ queryKey: ['chapter'], queryFn: api.getChapter })
+  const { id = '' } = useParams()
+  const { data, isPending, error } = useQuery({ queryKey: ['chapter', id], queryFn: () => api.getChapter(id) })
   if (isPending) return <p className="text-muted">Chargement…</p>
   if (error) return <p role="alert" className="text-incorrect">Impossible de charger le parcours.</p>
 
@@ -48,6 +49,7 @@ export function ChapterMap() {
 
   return (
     <div>
+      <Link to="/" className="mb-4 inline-block text-sm text-brand underline underline-offset-4">← Programme de l’année</Link>
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-sm text-muted">2ème Bac · Sciences physiques / SVT</p>
